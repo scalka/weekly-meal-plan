@@ -1,17 +1,14 @@
-const days = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-];
-
 const vegeTags = [
   '85f14ac3-8299-423d-bd45-23eef4ca7c10',
   '8990d4fe-32f1-4012-9f73-0ddd80aaaca1',
 ];
+
+const doughTags = ['burger', 'wrap', 'pizza', 'bread', 'naan'];
+const riceTags = ['rice', 'risotto'];
+const potatoTags = ['potato', 'sweetpotato'];
+const grainsTags = ['kasza', 'couscus', 'quinoa'];
+const pastaTags = ['pasta'];
+const otherTags = [];
 
 export function recommendDiner(data, criteria) {
   // dietary preference
@@ -19,11 +16,12 @@ export function recommendDiner(data, criteria) {
   const numVegetarian = 4;
 
   // starches
-  const numRice = 3;
-  const numPotato = 2;
-  const numBread = 1;
-  const numKasza = 1;
-  const numOther = 1;
+  const maxNumRice = 3;
+  const maxNumPotato = 2;
+  const maxNumDough = 1;
+  const maxNumKasza = 1;
+  const maxNumPasta = 1;
+  const maxNumOther = 1;
 
   const selection = [];
   const selectionIds = new Set();
