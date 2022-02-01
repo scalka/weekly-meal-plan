@@ -3,9 +3,9 @@ import { Droppable } from 'react-beautiful-dnd';
 import CardItem from './CardItem';
 
 // Column on the board with column items
-const Column = ({ column, columnItems }) => {
+const Column = ({ color='bg-indigo-200', column, columnItems }) => {
   return (
-    <div className="p-2.5 bg-indigo-200">
+    <div className={`p-2.5 ${color}`}>
       <h2 className='font-medium uppercase'>{column.title}</h2>
       <Droppable droppableId={column.id}>
         {(provided, snapshot) => (

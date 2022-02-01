@@ -7,7 +7,7 @@ import mockData from '../data/mockData.json';
 import DragAndDrop from '../components/DragAndDrop';
 
 export default function Home({ columnsWithIds, normalizedRecipes }) {
-  console.log(normalizedRecipes);
+  console.log(columnsWithIds);
   const [isBrowser, setIsBrowser] = useState(false);
   useEffect(() => {
     setIsBrowser(true);

@@ -83,7 +83,7 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
             const column = currColumnsWithIds[columnId];
             const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
 
-            return <Column key={column.id} column={column} columnItems={columnItems} />;
+            return <Column key={column.id} column={column} columnItems={columnItems} color='bg-violet-200'/>;
           })}
         </div>
       </DragDropContext>

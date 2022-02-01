@@ -5,6 +5,22 @@ const potatoTags = ['potato', 'sweetpotato'];
 const grainsTags = ['kasza', 'couscus', 'quinoa'];
 const pastaTags = ['pasta'];
 
+let today = new Date();
+const ISOdates = [];
+const stringDates = [];
+const options: Intl.DateTimeFormatOptions = {
+  weekday: 'short',
+  month: 'numeric',
+  day: 'numeric',
+};
+
+for (let i = 1; i <= 7; i++) {
+  const currDate = new Date();
+  currDate.setDate(today.getDate() + i);
+  ISOdates.push(currDate.toISOString());
+  stringDates.push(new Intl.DateTimeFormat('en-GB', options).format(currDate));
+}
+
 const initialBoardData = {
   columns: {
     dough: {
@@ -49,40 +65,47 @@ const initialBoardData = {
       relatedTags: vegetarianTags,
       max: 3,
     },
-    'col-monday': {
-      id: 'col-monday',
-      title: 'Monday',
+    'col-in-1-days': {
+      id: 'col-in-1-days',
+      title: stringDates[0],
       recipeIds: [],
+      date: ISOdates[0],
     },
-    'col-tuesday': {
-      id: 'col-tuesday',
-      title: 'Tuesday',
+    'col-in-2-days': {
+      id: 'col-in-2-days',
+      title: stringDates[1],
       recipeIds: [],
+      date: ISOdates[1],
     },
-    'col-wednesday': {
-      id: 'col-wednesday',
-      title: 'Wednesday',
+    'col-in-3-days': {
+      id: 'col-in-3-days',
+      title: stringDates[2],
       recipeIds: [],
+      date: ISOdates[2],
     },
-    'col-thursday': {
-      id: 'col-thursday',
-      title: 'Thursday',
+    'col-in-4-days': {
+      id: 'col-in-4-days',
+      title: stringDates[3],
       recipeIds: [],
+      date: ISOdates[3],
     },
-    'col-friday': {
-      id: 'col-friday',
-      title: 'Friday',
+    'col-in-5-days': {
+      id: 'col-in-5-days',
+      title: stringDates[4],
       recipeIds: [],
+      date: ISOdates[4],
     },
-    'col-saturday': {
-      id: 'col-saturday',
-      title: 'Saturday',
+    'col-in-6-days': {
+      id: 'col-in-6-days',
+      title: stringDates[5],
       recipeIds: [],
+      date: ISOdates[5],
     },
-    'col-sunday': {
-      id: 'col-sunday',
-      title: 'Sunday',
+    'col-in-7-days': {
+      id: 'col-in-7-days',
+      title: stringDates[6],
       recipeIds: [],
+      date: ISOdates[6],
     },
   },
   columnOrderTypes: [
@@ -94,13 +117,13 @@ const initialBoardData = {
     'extraVegan',
   ],
   columnOrderTypesDays: [
-    'col-monday',
-    'col-tuesday',
-    'col-wednesday',
-    'col-thursday',
-    'col-friday',
-    'col-saturday',
-    'col-sunday',
+    'col-in-1-days',
+    'col-in-2-days',
+    'col-in-3-days',
+    'col-in-4-days',
+    'col-in-5-days',
+    'col-in-6-days',
+    'col-in-7-days',
   ],
 };
 
