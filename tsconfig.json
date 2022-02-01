@@ -1,0 +1,37 @@
+// starting tsconfig to work with JS
+{
+  "compilerOptions": {
+    "target": "ES2020", // legacy runtimes ES5; ES2015; for latest use ESNEXT
+    "module": "es2020", // commonjs used by node, es2020 in modern browser modules
+    "strict": false,
+    "allowJs": true, // allow reference to regular JS files
+    "checkJs": true, // similar to @ts-check, checks JS as well
+    "typeRoots": [ // where additional folders with types are?
+      "@types",
+      "node_modules/@types"
+    ],
+    "esModuleInterop": true, // connected to module, if true you can mix ES Modules with commonJs and TypeScript will take care of compatibility
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": "."
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+, "components/DragAndDrop.js"  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
