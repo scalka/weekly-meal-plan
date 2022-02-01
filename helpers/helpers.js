@@ -1,48 +1,47 @@
 //@ts-check;
-const vegetarianTags = ['vegetarian', 'vegan'];
-const doughTags = ['burger', 'wrap', 'pizza', 'bread', 'naan'];
-const riceTags = ['rice', 'risotto'];
-const potatoTags = ['potato', 'sweetpotato'];
-const grainsTags = ['kasza', 'couscus', 'quinoa'];
-const pastaTags = ['pasta'];
-
-const queryConditions = [
-  { id: 'dough', starchTags: doughTags, max: 1 },
-  { id: 'rice', starchTags: riceTags, max: 1 },
-  { id: 'potato', starchTags: potatoTags, max: 1 },
-  { id: 'grains', starchTags: grainsTags, max: 1 },
-  { id: 'pasta', starchTags: pastaTags, max: 1 },
-];
+import initialBoardData, { vegetarianTags } from 'data/initialBoardData';
 
 // dietary preference
 const numVegetarian = 4;
 
-export function recommendDiner(data) {
-  const selection = [];
-  let finalRecipes = {
-    dough: [],
-    rice: [],
-    potato: [],
-    grains: [],
-    pasta: [],
-    extraVegan: [],
+export function normalize(data, idKey) {
+  const byId = data.reduce(
+    (acc, item) => ({
+      ...acc,
+      [item[idKey]]: item,
+    }),
+    {}
+  );
+
+  const allIds = data.map((item) => item[idKey]);
+
+  return {
+    byId,
+    allIds,
   };
+}
+
+export function recommendDiner(data) {
+  const columnOrderTypes = initialBoardData.columnOrderTypes;
+  const selection = [];
+  let columnsWithIds = initialBoardData.columns;
+
   const selectionIds = new Set();
 
-  queryConditions.forEach(({ id, starchTags, max }) => {
-    const filteredRecipes = filterBaseOnConditions(data, starchTags);
-
+  columnOrderTypes.forEach((columnId) => {
+    const categorySelected = new Set();
+    const { id, relatedTags, max } = columnsWithIds[columnId];
+    const filteredRecipes = filterBaseOnConditions(data, relatedTags);
     for (let i = 0; i <= max; i++) {
       const { result, error } = getRecipe(filteredRecipes, selectionIds);
+
       if (result) {
         selection.push(result);
-        finalRecipes = {
-          ...finalRecipes,
-          [id]: [...finalRecipes[id], result],
-        };
         selectionIds.add(result.id);
+        categorySelected.add(result.id);
       }
     }
+    columnsWithIds[columnId].recipeIds = Array.from(categorySelected);
   });
 
   const countVegan = filterBaseOnConditions(selection, vegetarianTags);
@@ -54,20 +53,22 @@ export function recommendDiner(data) {
       const { result, error } = getRecipe(extraVeganRecipes, selectionIds);
       if (result) {
         selection.push(result);
-        finalRecipes = {
-          ...finalRecipes,
-          extraVegan: [...finalRecipes.extraVegan, result],
+        columnsWithIds = {
+          ...columnsWithIds,
+          extraVegan: [...columnsWithIds.extraVegan, result],
         };
         selectionIds.add(result.id);
       }
     }
   }
-  return finalRecipes;
+  const normalizedRecipes = normalize(selection, 'id');
+  return { columnsWithIds, normalizedRecipes };
 }
 
 export function getRecipe(data, selectionIds = new Set(), noResults) {
   let recipe;
   recipe = getRandom(data);
+  console.log(recipe);
   if (noResults) {
     // return getRecipe(data, selectionIds, true);
     return { result: null, error: 'no results' };
@@ -97,48 +98,9 @@ export function getRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/**
- * Group array into object with key value pairs
- * @param {arr} arr - array of objects
- * @param {string} criteria - key on which to group ex. id, categort
- * @returns objects grouped by criteria
- */
-export function groupBy(arr, criteria) {
-  const newObj = arr.reduce(function (acc, currentValue) {
-    if (!acc[currentValue[criteria]]) {
-      acc[currentValue[criteria]] = [];
-    }
-    acc[currentValue[criteria]].push(currentValue);
-    return acc;
-  }, {});
-
-  return newObj;
-}
-
-/**
- * Creates nested groups by object properties.
- * `properties` array nest from highest(index = 0) to lowest level.
- * @param {arr} arr - array of objects
- * @param {String[]} properties
- * @returns {Object}
- */
-export function nestedGroupsBy(arr, properties) {
-  properties = Array.from(properties);
-  if (properties.length === 1) {
-    return groupBy(arr, properties[0]);
-  }
-  const property = properties.shift();
-  var grouped = groupBy(arr, property);
-  for (let key in grouped) {
-    grouped[key] = nestedGroupsBy(grouped[key], Array.from(properties));
-  }
-  return grouped;
-}
-
 export function formatRecipeData(data, pastMeals) {
-  console.log(data.length);
   const filterPastWeek = data.filter((item) => !pastMeals.includes(item.id));
-  console.log(filterPastWeek.length);
+
   const result = filterPastWeek.map((item) => ({
     ...item,
     title: item.properties.Title.title[0].plain_text,
