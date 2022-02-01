@@ -7,7 +7,6 @@ import mockData from '../data/mockData.json';
 import DragAndDrop from '../components/DragAndDrop';
 
 export default function Home({ columnsWithIds, normalizedRecipes }) {
-  console.log(columnsWithIds);
   console.log(normalizedRecipes);
   const [isBrowser, setIsBrowser] = useState(false);
   useEffect(() => {
@@ -29,7 +28,8 @@ export default function Home({ columnsWithIds, normalizedRecipes }) {
 export async function getStaticProps(context) {
   //const records = await getAllRecipes();
   //const lastWeekMealIds = await getWeeklyPlan();
-  const records = formatRecipeData(mockData.results, []);
+  const lastWeekMealIds = mockData.lastWeekMealIds;
+  const records = formatRecipeData(mockData.results, lastWeekMealIds);
   const { columnsWithIds, normalizedRecipes } = recommendDiner(records);
   return {
     props: {
