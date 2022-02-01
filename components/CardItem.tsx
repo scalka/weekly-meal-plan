@@ -13,6 +13,7 @@ const CardItem = ({ cardItem, index }) => {
           /* isDragging={snapshot.isDragging} */
         >
           <div className="">{cardItem.title}</div>
+          <div> {cardItem.tags.map(tag => <div className='inline-block bg-gray-200 rounded-full px-2 py-1 text-xs font-semibold text-gray-700 mr-1 mb-1'>{tag}</div>)}</div>
         </div>
       )}
     </Draggable>

@@ -6,7 +6,7 @@ import CardItem from './CardItem';
 const Column = ({ column, columnItems }) => {
   return (
     <div className="p-2.5 bg-indigo-200">
-      <h2>{column.title}</h2>
+      <h2 className='font-medium uppercase'>{column.title}</h2>
       <Droppable droppableId={column.id}>
         {(provided, snapshot) => (
           <div
