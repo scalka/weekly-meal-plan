@@ -70,7 +70,7 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
     <div className="grid grid-rows-2 gap-6">
       <DragDropContext onDragEnd={onDragEnd}>
        
-        <div className="grid grid-cols-6  gap-4 ">
+        <div className="grid grid-cols-6 gap-4">
           {initialBoardData.columnOrderTypes.map((columnId) => {
             const column = currColumnsWithIds[columnId];
             const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
@@ -78,7 +78,7 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
             return <Column key={column.id} column={column} columnItems={columnItems} />;
           })}
         </div>
-        <div className="grid grid-cols-7 gap-4 ">
+        <div className="grid grid-cols-7 gap-4">
           {initialBoardData.columnOrderTypesDays.map((columnId) => {
             const column = currColumnsWithIds[columnId];
             const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
