@@ -10,7 +10,7 @@ import {
 } from '../lib/notion-api';
 import { recommendDiner, formatRecipeData } from 'helpers/helpers';
 import mockData from '../data/mockData.json';
-import initialBoardData from 'data/initialBoardData';
+import defaultState from 'state/defaultState';
 
 import DragAndDrop from '../components/DragAndDrop';
 
@@ -50,7 +50,7 @@ export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
   const handleSaveWeeklyPlan = async () => {
     const requests = [];
     // map recipes from column
-    initialBoardData.columnOrderTypesDays.forEach((dayId) => {
+    defaultState.columnOrderTypesDays.forEach((dayId) => {
       return currColumnsWithIds[dayId].recipeIds.forEach(async (id) => {
         const column = currColumnsWithIds[dayId];
         const recipe = normalizedRecipes.byId[id];
@@ -102,7 +102,7 @@ export async function getServerSideProps({ req, res }) {
   const { columnsWithIds, normalizedRecipes } = recommendDiner(records);
 
   // add to the board already planned recipes
-  initialBoardData.columnOrderTypesDays.forEach((dayId) => {
+  defaultState.columnOrderTypesDays.forEach((dayId) => {
     const plannedMeals = results
       .filter(
         (item) =>

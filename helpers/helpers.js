@@ -1,5 +1,5 @@
 //@ts-check;
-import initialBoardData, { vegetarianTags } from 'data/initialBoardData';
+import defaultState, { vegetarianTags } from 'state/defaultState';
 
 // dietary preference
 const numVegetarian = 4;
@@ -22,9 +22,9 @@ export function normalize(data, idKey) {
 }
 
 export function recommendDiner(data) {
-  const columnOrderTypes = initialBoardData.columnOrderTypes;
+  const columnOrderTypes = defaultState.columnOrderTypes;
   const selection = [];
-  let columnsWithIds = initialBoardData.columns;
+  let columnsWithIds = defaultState.columns;
 
   const selectionIds = new Set();
 

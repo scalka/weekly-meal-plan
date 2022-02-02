@@ -5,7 +5,7 @@ import { DragDropContext} from 'react-beautiful-dnd';
 
 import Context from 'state/Context';
 
-import initialBoardData from 'data/initialBoardData';
+import defaultState from 'state/defaultState';
 import Column from 'components/Column';
 
 // Drag and drop board with columns and recipes in correct columns
@@ -75,7 +75,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
     <div className="grid grid-rows-2 gap-6">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="grid grid-cols-6 gap-4">
-          {initialBoardData.columnOrderTypes.map((columnId) => {
+          {defaultState.columnOrderTypes.map((columnId) => {
             const column = columnsWithIds[columnId];
             const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
 
@@ -83,7 +83,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
           })}
         </div>
         <div className="grid grid-cols-7 gap-4">
-          {initialBoardData.columnOrderTypesDays.map((columnId) => {
+          {defaultState.columnOrderTypesDays.map((columnId) => {
             const column = columnsWithIds[columnId];
             const columnItems = column.recipeIds.map((recipeId) => normalizedRecipes.byId[recipeId]);
             const alreadyPlanned = column.plannedIds.map((plannedId) => {
