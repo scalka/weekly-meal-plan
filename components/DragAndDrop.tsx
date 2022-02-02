@@ -1,11 +1,20 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+
 import { DragDropContext} from 'react-beautiful-dnd';
+
+import Context from 'state/Context';
 
 import initialBoardData from 'data/initialBoardData';
 import Column from 'components/Column';
 
 // Drag and drop board with columns and recipes in correct columns
-const DragAndDrop = ({ columnsWithIds, normalizedPlanned, normalizedRecipes, updateData }) => {
+const DragAndDrop = ({ columnsWithIds, updateData }) => {
+  const {
+    state: { normalizedPlanned, normalizedRecipes },
+    dispatch,
+  } = useContext(Context);
+
   // logic for handling board ites when drag ends
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;

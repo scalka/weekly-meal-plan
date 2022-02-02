@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
+
+import Context from 'state/Context';
 
 import {
   getAllRecipes,
@@ -11,42 +14,63 @@ import initialBoardData from 'data/initialBoardData';
 
 import DragAndDrop from '../components/DragAndDrop';
 
-export default function Home({
-  columnsWithIds,
-  normalizedPlanned,
-  normalizedRecipes,
-}) {
+export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
+  const {
+    state: { normalizedRecipes },
+    dispatch,
+  } = useContext(Context);
+  const router = useRouter();
+
   const [currColumnsWithIds, setCurrColumnsWithIds] = useState(null);
 
   useEffect(() => {
     setCurrColumnsWithIds(columnsWithIds);
-  }, [columnsWithIds]);
+    dispatch({ type: 'UPDATE_ALL_RECIPES', payload: serverRecipes });
+    dispatch({ type: 'UPDATE_ALL_PLANNED', payload: serverPlanned });
+  }, [columnsWithIds, serverRecipes, serverPlanned, dispatch]);
 
-  const handleSaveWeeklyPlan = async () => {
-    initialBoardData.columnOrderTypesDays.forEach((dayId) => {
-      currColumnsWithIds[dayId].recipeIds.forEach(async (id) => {
-        const column = currColumnsWithIds[dayId];
-        const recipe = normalizedRecipes.byId[id];
-
+  const updatePlan = async (requests) => {
+    return Promise.all(
+      requests.map(async (request) => {
         const response = await fetch(`/api/planner`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            recipeLinkId: recipe.id,
-            name: recipe.title,
-            date: column.date,
-          }),
+          body: JSON.stringify(request),
         });
-
+        console.log('response');
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
-        //normalizedRecipes.byId[id].status = 'planned';
-        console.log(normalizedRecipes.byId[id]);
+      })
+    );
+  };
+
+  const handleSaveWeeklyPlan = async () => {
+    const requests = [];
+    // map recipes from column
+    initialBoardData.columnOrderTypesDays.forEach((dayId) => {
+      return currColumnsWithIds[dayId].recipeIds.forEach(async (id) => {
+        const column = currColumnsWithIds[dayId];
+        const recipe = normalizedRecipes.byId[id];
+
+        requests.push({
+          recipeLinkId: recipe.id,
+          name: recipe.title,
+          date: column.date,
+        });
       });
     });
+    // save new recipes to the weekly plan
+    await updatePlan(requests);
+    // refresh the data from server after saving new planned meals
+    refreshData();
+  };
+
+  // refresh the data from server
+  const refreshData = () => {
+    router.replace(router.asPath);
   };
 
   return (
@@ -54,8 +78,6 @@ export default function Home({
       {currColumnsWithIds && (
         <DragAndDrop
           columnsWithIds={currColumnsWithIds}
-          normalizedRecipes={normalizedRecipes}
-          normalizedPlanned={normalizedPlanned}
           updateData={setCurrColumnsWithIds}
         ></DragAndDrop>
       )}
@@ -97,8 +119,8 @@ export async function getServerSideProps({ req, res }) {
     props: {
       data: records,
       columnsWithIds: columnsWithIds,
-      normalizedRecipes: normalizedRecipes,
-      normalizedPlanned: normalizedPlanned,
+      serverRecipes: normalizedRecipes,
+      serverPlanned: normalizedPlanned,
     },
   };
 }

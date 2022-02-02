@@ -2,6 +2,9 @@ import { Draggable } from 'react-beautiful-dnd';
 
 // CardItem - recipe card
 const CardItem = ({ cardItem, index }) => {
+  if(!cardItem) {
+    return null;
+  }
   return (
     <Draggable draggableId={cardItem.id} index={index}>
       {(provided, snapshot) => (
