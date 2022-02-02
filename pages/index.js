@@ -11,13 +11,18 @@ import initialBoardData from 'data/initialBoardData';
 
 import DragAndDrop from '../components/DragAndDrop';
 
-export default function Home({ columnsWithIds, normalizedRecipes, test }) {
+export default function Home({
+  columnsWithIds,
+  normalizedPlanned,
+  normalizedRecipes,
+}) {
   const [isBrowser, setIsBrowser] = useState(false);
-  const [currColumnsWithIds, setCurrColumnsWithIds] = useState(columnsWithIds);
+  const [currColumnsWithIds, setCurrColumnsWithIds] = useState(null);
 
   useEffect(() => {
     setIsBrowser(true);
-  }, []);
+    setCurrColumnsWithIds(columnsWithIds);
+  }, [columnsWithIds]);
 
   const handleSaveWeeklyPlan = async () => {
     initialBoardData.columnOrderTypesDays.forEach((dayId) => {
@@ -46,13 +51,15 @@ export default function Home({ columnsWithIds, normalizedRecipes, test }) {
 
   return (
     <main className="static">
-      {isBrowser && (
+      {currColumnsWithIds && (
         <DragAndDrop
           columnsWithIds={currColumnsWithIds}
           normalizedRecipes={normalizedRecipes}
+          normalizedPlanned={normalizedPlanned}
           updateData={setCurrColumnsWithIds}
         ></DragAndDrop>
       )}
+
       <button
         className="fixed bottom-3 right-3 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleSaveWeeklyPlan}
@@ -65,17 +72,33 @@ export default function Home({ columnsWithIds, normalizedRecipes, test }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  const allRecipes = await getAllRecipes();
-  const lastWeekMealIds = await getWeeklyPlan();
+  //const allRecipes = await getAllRecipes();
+  const allRecipes = mockData;
+  const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan();
   //const lastWeekMealIds = mockData.lastWeekMealIds;
   const records = formatRecipeData(allRecipes.results, lastWeekMealIds);
   const { columnsWithIds, normalizedRecipes } = recommendDiner(records);
+
+  // add to the board already planned recipes
+  initialBoardData.columnOrderTypesDays.forEach((dayId) => {
+    const plannedMeals = results
+      .filter(
+        (item) =>
+          new Date(item.date).getDate() ===
+          new Date(columnsWithIds[dayId].date).getDate()
+      )
+      .map((item) => item.id);
+
+    columnsWithIds[dayId].plannedIds = [...plannedMeals];
+    return;
+  });
 
   return {
     props: {
       data: records,
       columnsWithIds: columnsWithIds,
       normalizedRecipes: normalizedRecipes,
+      normalizedPlanned: normalizedPlanned,
     },
   };
 }

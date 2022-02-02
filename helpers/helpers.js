@@ -109,3 +109,15 @@ export function formatRecipeData(data, pastMeals) {
 
   return result;
 }
+
+export function formatPlannedMealData(data) {
+  const result = data.map((item) => ({
+    ...item,
+    date: new Date(item.properties.Date.date.start).toISOString(),
+    title: item.properties.Name.title[0].plain_text,
+    recipeLinkId: item.properties['Recipe link']?.relation[0]?.id || null,
+    tags: ['planned'],
+  }));
+
+  return result;
+}

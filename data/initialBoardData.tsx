@@ -5,9 +5,13 @@ const potatoTags = ['potato', 'sweetpotato'];
 const grainsTags = ['kasza', 'couscus', 'quinoa'];
 const pastaTags = ['pasta'];
 
-let today = new Date();
+const today = new Date();
+const weekAgo = new Date();
+weekAgo.setDate(today.getDate() - 7)
+
 const ISOdates = [];
 const stringDates = [];
+
 const options: Intl.DateTimeFormatOptions = {
   weekday: 'short',
   month: 'numeric',
@@ -68,42 +72,49 @@ const initialBoardData = {
     'col-in-1-days': {
       id: 'col-in-1-days',
       title: stringDates[0],
+      plannedIds: [],
       recipeIds: [],
       date: ISOdates[0],
     },
     'col-in-2-days': {
       id: 'col-in-2-days',
       title: stringDates[1],
+      plannedIds: [],
       recipeIds: [],
       date: ISOdates[1],
     },
     'col-in-3-days': {
       id: 'col-in-3-days',
       title: stringDates[2],
+      plannedIds: [],
       recipeIds: [],
       date: ISOdates[2],
     },
     'col-in-4-days': {
       id: 'col-in-4-days',
       title: stringDates[3],
+      plannedIds: [],
       recipeIds: [],
       date: ISOdates[3],
     },
     'col-in-5-days': {
       id: 'col-in-5-days',
       title: stringDates[4],
+      plannedIds: [],
       recipeIds: [],
       date: ISOdates[4],
     },
     'col-in-6-days': {
       id: 'col-in-6-days',
       title: stringDates[5],
+      plannedIds: [],
       recipeIds: [],
       date: ISOdates[5],
     },
     'col-in-7-days': {
       id: 'col-in-7-days',
       title: stringDates[6],
+      plannedIds: [],
       recipeIds: [],
       date: ISOdates[6],
     },
@@ -127,4 +138,4 @@ const initialBoardData = {
   ],
 };
 
-export { initialBoardData as default, vegetarianTags };
+export { initialBoardData as default, vegetarianTags, weekAgo };

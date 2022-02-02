@@ -1,14 +1,11 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext} from 'react-beautiful-dnd';
 
 import initialBoardData from 'data/initialBoardData';
 import Column from 'components/Column';
 
 // Drag and drop board with columns and recipes in correct columns
-const DragAndDrop = ({ columnsWithIds, normalizedRecipes, updateData }) => {
-  
-
+const DragAndDrop = ({ columnsWithIds, normalizedPlanned, normalizedRecipes, updateData }) => {
   // logic for handling board ites when drag ends
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -80,9 +77,11 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes, updateData }) => {
         <div className="grid grid-cols-7 gap-4">
           {initialBoardData.columnOrderTypesDays.map((columnId) => {
             const column = columnsWithIds[columnId];
-            const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
-
-            return <Column key={column.id} column={column} columnItems={columnItems} color='bg-violet-200'/>;
+            const columnItems = column.recipeIds.map((recipeId) => normalizedRecipes.byId[recipeId]);
+            const alreadyPlanned = column.plannedIds.map((plannedId) => {
+              return normalizedPlanned.byId[plannedId]
+            });
+            return <Column key={column.id} column={column} columnItems={[...alreadyPlanned, ...columnItems]} color='bg-violet-200'/>;
           })}
         </div>
       </DragDropContext>
