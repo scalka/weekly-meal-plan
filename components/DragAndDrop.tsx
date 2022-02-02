@@ -12,7 +12,6 @@ import Column from 'components/Column';
 const DragAndDrop = ({ columnsWithIds, updateData }) => {
   const {
     state: { normalizedPlanned, normalizedRecipes },
-    dispatch,
   } = useContext(Context);
 
   // logic for handling board ites when drag ends
