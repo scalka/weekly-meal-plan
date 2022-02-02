@@ -1,5 +1,5 @@
 const vegetarianTags = ['vegetarian', 'vegan'];
-const doughTags = ['burger', 'wrap', 'pizza', 'bread', 'naan'];
+const doughTags = ['burger', 'wraps', 'dough', 'bread', 'naan'];
 const riceTags = ['rice', 'risotto'];
 const potatoTags = ['potato', 'sweetpotato'];
 const grainsTags = ['kasza', 'couscus', 'quinoa'];

@@ -6,8 +6,8 @@ import initialBoardData from 'data/initialBoardData';
 import Column from 'components/Column';
 
 // Drag and drop board with columns and recipes in correct columns
-const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
-  const [currColumnsWithIds, setCurrColumnsWithIds] = useState(columnsWithIds);
+const DragAndDrop = ({ columnsWithIds, normalizedRecipes, updateData }) => {
+  
 
   // logic for handling board ites when drag ends
   const onDragEnd = (result) => {
@@ -22,8 +22,8 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
       return;
     }
 
-    const start = currColumnsWithIds[source.droppableId];
-    const finish = currColumnsWithIds[destination.droppableId];
+    const start = columnsWithIds[source.droppableId];
+    const finish = columnsWithIds[destination.droppableId];
 
     // Re-ordering in the same column
     if (start === finish) {
@@ -36,8 +36,8 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
         recipeIds: newrecipeIds,
       };
 
-      setCurrColumnsWithIds({
-          ...currColumnsWithIds,
+      updateData({
+          ...columnsWithIds,
           [newColumn.id]: newColumn,
       });
       return;
@@ -58,8 +58,8 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
       recipeIds: finishrecipeIds,
     };
 
-    setCurrColumnsWithIds({
-        ...currColumnsWithIds,
+    updateData({
+        ...columnsWithIds,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish,
     });
@@ -69,10 +69,9 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
   return (
     <div className="grid grid-rows-2 gap-6">
       <DragDropContext onDragEnd={onDragEnd}>
-       
         <div className="grid grid-cols-6 gap-4">
           {initialBoardData.columnOrderTypes.map((columnId) => {
-            const column = currColumnsWithIds[columnId];
+            const column = columnsWithIds[columnId];
             const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
 
             return <Column key={column.id} column={column} columnItems={columnItems} />;
@@ -80,7 +79,7 @@ const DragAndDrop = ({ columnsWithIds, normalizedRecipes }) => {
         </div>
         <div className="grid grid-cols-7 gap-4">
           {initialBoardData.columnOrderTypesDays.map((columnId) => {
-            const column = currColumnsWithIds[columnId];
+            const column = columnsWithIds[columnId];
             const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
 
             return <Column key={column.id} column={column} columnItems={columnItems} color='bg-violet-200'/>;
