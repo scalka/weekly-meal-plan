@@ -43,6 +43,8 @@ export default function Home({
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
+        //normalizedRecipes.byId[id].status = 'planned';
+        console.log(normalizedRecipes.byId[id]);
       });
     });
   };

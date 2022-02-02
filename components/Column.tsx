@@ -16,7 +16,7 @@ const Column = ({ color='bg-indigo-200', column, columnItems }) => {
             /* isDraggingOver={snapshot.isDraggingOver} */
           >
             {columnItems.map((cardItem, index) => (
-              <CardItem key={cardItem.id} cardItem={cardItem} index={index} />
+              <CardItem key={cardItem?.id} cardItem={cardItem} index={index} />
             ))}
             {provided.placeholder}
           </div>
