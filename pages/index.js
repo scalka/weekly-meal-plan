@@ -19,12 +19,27 @@ export default function Home({ columnsWithIds, normalizedRecipes, test }) {
     setIsBrowser(true);
   }, []);
 
-  const handleSaveWeeklyPlan = () => {
+  const handleSaveWeeklyPlan = async () => {
     initialBoardData.columnOrderTypesDays.forEach((dayId) => {
-      console.log(dayId);
-      currColumnsWithIds[dayId].recipeIds.forEach((id) => {
-        console.log(id + 'klsjfklsj');
-        updateWeeklyPlan(currColumnsWithIds[dayId], normalizedRecipes.byId[id]);
+      currColumnsWithIds[dayId].recipeIds.forEach(async (id) => {
+        const column = currColumnsWithIds[dayId];
+        const recipe = normalizedRecipes.byId[id];
+
+        const response = await fetch(`/api/planner`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            recipeLinkId: recipe.id,
+            name: recipe.title,
+            date: column.date,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
       });
     });
   };
@@ -41,6 +56,7 @@ export default function Home({ columnsWithIds, normalizedRecipes, test }) {
       <button
         className="fixed bottom-3 right-3 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleSaveWeeklyPlan}
+        type="submit"
       >
         Send to Notion
       </button>
@@ -48,13 +64,12 @@ export default function Home({ columnsWithIds, normalizedRecipes, test }) {
   );
 }
 
-export async function getStaticProps(context) {
-  //const records = await getAllRecipes();
-  //const lastWeekMealIds = await getWeeklyPlan();
-  const lastWeekMealIds = mockData.lastWeekMealIds;
-  const records = formatRecipeData(mockData.results, lastWeekMealIds);
+export async function getServerSideProps({ req, res }) {
+  const allRecipes = await getAllRecipes();
+  const lastWeekMealIds = await getWeeklyPlan();
+  //const lastWeekMealIds = mockData.lastWeekMealIds;
+  const records = formatRecipeData(allRecipes.results, lastWeekMealIds);
   const { columnsWithIds, normalizedRecipes } = recommendDiner(records);
-  //const test = await updateWeeklyPlan();
 
   return {
     props: {

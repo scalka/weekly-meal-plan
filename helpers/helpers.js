@@ -68,7 +68,7 @@ export function recommendDiner(data) {
 export function getRecipe(data, selectionIds = new Set(), noResults) {
   let recipe;
   recipe = getRandom(data);
-  console.log(recipe);
+  //console.log(recipe);
   if (noResults) {
     // return getRecipe(data, selectionIds, true);
     return { result: null, error: 'no results' };
