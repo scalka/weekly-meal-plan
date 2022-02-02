@@ -16,11 +16,9 @@ export default function Home({
   normalizedPlanned,
   normalizedRecipes,
 }) {
-  const [isBrowser, setIsBrowser] = useState(false);
   const [currColumnsWithIds, setCurrColumnsWithIds] = useState(null);
 
   useEffect(() => {
-    setIsBrowser(true);
     setCurrColumnsWithIds(columnsWithIds);
   }, [columnsWithIds]);
 
