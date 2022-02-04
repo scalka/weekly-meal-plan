@@ -105,6 +105,8 @@ export function formatRecipeData(data, pastMeals) {
     ...item,
     title: item.properties.Title.title[0].plain_text,
     tags: item.properties.Tags.multi_select.map((tag) => tag.name),
+    book: item.properties.Book.select?.name || '',
+    website: item.properties.Link?.url || '',
   }));
 
   return result;

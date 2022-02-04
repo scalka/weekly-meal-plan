@@ -89,7 +89,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
             const alreadyPlanned = column.plannedIds.map((plannedId) => {
               return normalizedPlanned.byId[plannedId]
             });
-            return <Column key={column.id} column={column} columnItems={[...alreadyPlanned, ...columnItems]} color='bg-violet-200'/>;
+            return <Column key={column.id} column={column} columnItems={[...alreadyPlanned, ...columnItems]} colorClass='bg-violet-200'/>;
           })}
         </div>
       </DragDropContext>
