@@ -74,7 +74,7 @@ export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
   };
 
   return (
-    <main className="static">
+    <main className="static p-5">
       {currColumnsWithIds && (
         <DragAndDrop
           columnsWithIds={currColumnsWithIds}

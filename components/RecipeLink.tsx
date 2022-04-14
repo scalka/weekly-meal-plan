@@ -7,7 +7,11 @@ const RecipeLink = ({ url, label = '' }) => {
     setShortLabel(cleanUrl(url));
   }, [url, label]);
 
-  return <a href={url}>{shortLabel}</a>;
+  return (
+    <a href={url} target="_blank" rel="noreferrer">
+      {shortLabel}
+    </a>
+  );
 };
 
 export default RecipeLink;
