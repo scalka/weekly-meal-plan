@@ -3,12 +3,8 @@ import { useRouter } from 'next/router';
 
 import Context from 'state/Context';
 
-import {
-  getAllRecipes,
-  getWeeklyPlan,
-  updateWeeklyPlan,
-} from '../lib/notion-api';
-import { recommendDiner, formatRecipeData } from 'helpers/helpers';
+import { getWeeklyPlan, getAllRecipes } from '../lib/notion-api';
+import { recommendDiner } from 'helpers/helpers';
 import mockData from '../data/mockData.json';
 import defaultState from 'state/defaultState';
 
@@ -93,12 +89,15 @@ export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  //const allRecipes = await getAllRecipes();
-  const allRecipes = mockData;
+  const allRecipes = await getAllRecipes();
+  //const allRecipes = mockData;
   const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan();
   //const lastWeekMealIds = mockData.lastWeekMealIds;
-  const records = formatRecipeData(allRecipes.results, lastWeekMealIds);
-  const { columnsWithIds, normalizedRecipes } = recommendDiner(records);
+
+  const { columnsWithIds, normalizedRecipes } = recommendDiner(
+    allRecipes,
+    lastWeekMealIds
+  );
 
   // add to the board already planned recipes
   defaultState.columnsOrderDays.forEach((dayId, currColIndex) => {

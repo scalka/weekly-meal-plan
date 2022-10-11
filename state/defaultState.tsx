@@ -1,9 +1,18 @@
 const vegetarianTags = ['vegetarian', 'vegan'];
-const doughTags = ['burger', 'wraps', 'dough', 'bread', 'naan'];
+const doughTags = [
+  'burger',
+  'wraps',
+  'dough',
+  'bread',
+  'naan',
+  'pizza',
+  'bread',
+];
 const riceTags = ['rice', 'risotto'];
-const potatoTags = ['potato', 'sweetpotato'];
+const potatoTags = ['potato', 'sweet potato', 'gnocchi'];
 const grainsTags = ['kasza', 'couscus', 'quinoa'];
-const pastaTags = ['pasta'];
+const pastaTags = ['pasta', 'noodles'];
+const soupTags = ['soup'];
 
 const today = new Date();
 const weekAgo = new Date();
@@ -84,6 +93,13 @@ const defaultState = {
       relatedTags: pastaTags,
       max: 3,
     },
+    soup: {
+      id: 'soup',
+      title: 'soup',
+      recipeIds: [],
+      relatedTags: soupTags,
+      max: 3,
+    },
     extraVegan: {
       id: 'extraVegan',
       title: 'extraVegan',
@@ -99,6 +115,7 @@ const defaultState = {
     'potato',
     'grains',
     'pasta',
+    'soup',
     'extraVegan',
   ],
   columnsOrderDays: dateColumns,

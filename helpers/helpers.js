@@ -21,7 +21,8 @@ export function normalize(data, idKey) {
   };
 }
 
-export function recommendDiner(data) {
+export function recommendDiner(allRecipes, lastWeekMealIds) {
+  const data = formatRecipeData(allRecipes.results, lastWeekMealIds);
   const columnsOrderFood = defaultState.columnsOrderFood;
   const selection = [];
   let columnsWithIds = defaultState.columns;
@@ -86,8 +87,6 @@ export function filterBaseOnConditions(
 ) {
   const list = arr.filter((item) => {
     return category.some((condition) => item.tags.includes(condition));
-    /* && conditions.every((condition) => item.tags.includes(condition)) &&
-      antiCondition.every((condition) => !item.tags.includes(condition)) */
   });
 
   return list;
