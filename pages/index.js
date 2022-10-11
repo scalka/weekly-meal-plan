@@ -132,7 +132,6 @@ export async function getServerSideProps({ req, res }) {
 
   return {
     props: {
-      data: records,
       columnsWithIds: columnsWithIds,
       serverRecipes: normalizedRecipes,
       serverPlanned: normalizedPlanned,
