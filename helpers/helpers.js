@@ -22,13 +22,13 @@ export function normalize(data, idKey) {
 }
 
 export function recommendDiner(data) {
-  const columnOrderTypes = defaultState.columnOrderTypes;
+  const columnsOrderFood = defaultState.columnsOrderFood;
   const selection = [];
   let columnsWithIds = defaultState.columns;
 
   const selectionIds = new Set();
 
-  columnOrderTypes.forEach((columnId) => {
+  columnsOrderFood.forEach((columnId) => {
     const categorySelected = new Set();
     const { id, relatedTags, max } = columnsWithIds[columnId];
     const filteredRecipes = filterBaseOnConditions(data, relatedTags);

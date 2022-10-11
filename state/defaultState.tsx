@@ -93,7 +93,7 @@ const defaultState = {
     },
     ...dateColumnsData,
   },
-  columnOrderTypes: [
+  columnsOrderFood: [
     'dough',
     'rice',
     'potato',
@@ -101,7 +101,7 @@ const defaultState = {
     'pasta',
     'extraVegan',
   ],
-  columnOrderTypesDays: dateColumns,
+  columnsOrderDays: dateColumns,
 };
 
 export { defaultState as default, vegetarianTags, weekAgo };
