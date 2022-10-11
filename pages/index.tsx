@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 
@@ -88,7 +89,7 @@ export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
   );
 }
 
-export async function getServerSideProps({ req, res }) {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const allRecipes = await getAllRecipes();
   //const allRecipes = mockData;
   const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan();
@@ -121,7 +122,7 @@ export async function getServerSideProps({ req, res }) {
         return item.id;
       });
 
-    // todo: understand why the recipes are dublicated on refresh
+    // todo: understand why the recipes are duplicated on refresh
     // Set removes the duplicates
     columnsWithIds[dayId].plannedIds = [
       ...new Set([...columnsWithIds[dayId].plannedIds, ...plannedMeals]),
@@ -136,4 +137,4 @@ export async function getServerSideProps({ req, res }) {
       serverPlanned: normalizedPlanned,
     },
   };
-}
+};

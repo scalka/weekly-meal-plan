@@ -1,8 +1,4 @@
-//@ts-check;
-import defaultState, { vegetarianTags } from 'state/defaultState';
-
-// dietary preference
-const numVegetarian = 4;
+import defaultState from 'state/defaultState';
 
 export function normalize(data, idKey) {
   const byId = data.reduce(
@@ -33,7 +29,7 @@ export function recommendDiner(allRecipes, lastWeekMealIds) {
     const { id, relatedTags, max } = columnsWithIds[columnId];
     const filteredRecipes = filterBaseOnConditions(data, relatedTags);
     for (let i = 0; i <= max; i++) {
-      const { result, error } = getRecipe(filteredRecipes, selectionIds);
+      const { result, error } = getRecipe(filteredRecipes, selectionIds, false);
 
       if (result) {
         selection.push(result);
@@ -44,23 +40,6 @@ export function recommendDiner(allRecipes, lastWeekMealIds) {
     columnsWithIds[columnId].recipeIds = Array.from(categorySelected);
   });
 
-  const countVegan = filterBaseOnConditions(selection, vegetarianTags);
-  let extraVeganRecipes = [];
-  // get extra vegan meals if not enough to choose from
-  if (countVegan.length < numVegetarian) {
-    extraVeganRecipes = filterBaseOnConditions(data, vegetarianTags);
-    for (let i = 0; i <= numVegetarian - countVegan.length; i++) {
-      const { result, error } = getRecipe(extraVeganRecipes, selectionIds);
-      if (result) {
-        selection.push(result);
-        columnsWithIds = {
-          ...columnsWithIds,
-          extraVegan: [...columnsWithIds.extraVegan, result],
-        };
-        selectionIds.add(result.id);
-      }
-    }
-  }
   const normalizedRecipes = normalize(selection, 'id');
   return { columnsWithIds, normalizedRecipes };
 }
@@ -79,12 +58,7 @@ export function getRecipe(data, selectionIds = new Set(), noResults) {
   }
 }
 
-export function filterBaseOnConditions(
-  arr,
-  category,
-  conditions = [],
-  antiCondition = []
-) {
+export function filterBaseOnConditions(arr, category) {
   const list = arr.filter((item) => {
     return category.some((condition) => item.tags.includes(condition));
   });
@@ -116,7 +90,9 @@ export function formatPlannedMealData(data) {
     const endDate = new Date(item.properties.Date.date.end);
     const hasEndDate = item.properties.Date?.date?.end === 'string';
     const daysDiff = typeof hasEndDate
-      ? Math.round((endDate - startDate) / (1000 * 60 * 60 * 24))
+      ? Math.round(
+          (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+        )
       : 0;
 
     return {

@@ -55,8 +55,14 @@ stringDates.map((date, i) => {
 
 const defaultState = {
   status: '',
-  normalizedRecipes: {},
-  normalizedPlanned: {},
+  normalizedRecipes: {
+    byId: {},
+    allIds: [],
+  },
+  normalizedPlanned: {
+    byId: {},
+    allIds: [],
+  },
   columns: {
     dough: {
       id: 'dough',
