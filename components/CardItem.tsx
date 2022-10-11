@@ -28,7 +28,7 @@ const CardItem = ({ cardItem, index }) => {
             <Tag colorClass="bg-indigo-200">{cardItem.book}</Tag>
           )}
           {cardItem.website && (
-            <Tag colorClass="bg-indigo-200">
+            <Tag colorClass="bg-indigo-100">
               <RecipeLink url={cardItem.website} />{' '}
             </Tag>
           )}

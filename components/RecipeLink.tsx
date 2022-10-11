@@ -8,7 +8,12 @@ const RecipeLink = ({ url, label = '' }) => {
   }, [url, label]);
 
   return (
-    <a href={url} target="_blank" rel="noreferrer">
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      className="underline decoration-indigo-500/30 hover:decoration-indigo-500/100"
+    >
       {shortLabel}
     </a>
   );
