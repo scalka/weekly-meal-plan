@@ -9,7 +9,7 @@ import {
   updateWeeklyPlan,
 } from '../lib/notion-api';
 import { recommendDiner, formatRecipeData } from 'helpers/helpers';
-import mockData from '../data/mockData.json';
+//import mockData from '../data/mockData.json';
 import defaultState from 'state/defaultState';
 
 import DragAndDrop from '../components/DragAndDrop';
@@ -94,8 +94,8 @@ export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  //const allRecipes = await getAllRecipes();
-  const allRecipes = mockData;
+  const allRecipes = await getAllRecipes();
+  //const allRecipes = mockData;
   const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan();
   //const lastWeekMealIds = mockData.lastWeekMealIds;
   const records = formatRecipeData(allRecipes.results, lastWeekMealIds);

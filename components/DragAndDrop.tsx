@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
 
-import { DragDropContext} from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import Context from 'state/Context';
 
@@ -42,8 +42,8 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
       };
 
       updateData({
-          ...columnsWithIds,
-          [newColumn.id]: newColumn,
+        ...columnsWithIds,
+        [newColumn.id]: newColumn,
       });
       return;
     }
@@ -64,32 +64,49 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
     };
 
     updateData({
-        ...columnsWithIds,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
+      ...columnsWithIds,
+      [newStart.id]: newStart,
+      [newFinish.id]: newFinish,
     });
     return;
   };
-
+  console.log(defaultState.columnOrderTypes);
   return (
     <div className="grid grid-rows-2 gap-6">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="grid grid-cols-6 gap-4">
           {defaultState.columnOrderTypes.map((columnId) => {
             const column = columnsWithIds[columnId];
-            const columnItems = column.recipeIds.map((taskId) => normalizedRecipes.byId[taskId]);
+            const columnItems = column.recipeIds.map(
+              (taskId) => normalizedRecipes.byId[taskId]
+            );
 
-            return <Column key={column.id} column={column} columnItems={columnItems} />;
+            return (
+              <Column
+                key={column.id}
+                column={column}
+                columnItems={columnItems}
+              />
+            );
           })}
         </div>
         <div className="grid grid-cols-7 gap-4">
           {defaultState.columnOrderTypesDays.map((columnId) => {
             const column = columnsWithIds[columnId];
-            const columnItems = column.recipeIds.map((recipeId) => normalizedRecipes.byId[recipeId]);
+            const columnItems = column.recipeIds.map(
+              (recipeId) => normalizedRecipes.byId[recipeId]
+            );
             const alreadyPlanned = column.plannedIds.map((plannedId) => {
-              return normalizedPlanned.byId[plannedId]
+              return normalizedPlanned.byId[plannedId];
             });
-            return <Column key={column.id} column={column} columnItems={[...alreadyPlanned, ...columnItems]} colorClass='bg-violet-200'/>;
+            return (
+              <Column
+                key={column.id}
+                column={column}
+                columnItems={[...alreadyPlanned, ...columnItems]}
+                colorClass="bg-violet-200"
+              />
+            );
           })}
         </div>
       </DragDropContext>
