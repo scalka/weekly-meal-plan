@@ -10,7 +10,6 @@ const Column = ({
   isDuplicateble,
   handleDuplicate,
 }) => {
-  console.log(columnItems);
   return (
     <Droppable droppableId={column.id}>
       {(provided, snapshot) => (

@@ -25,7 +25,6 @@ export function recommendDiner(data) {
   const columnsOrderFood = defaultState.columnsOrderFood;
   const selection = [];
   let columnsWithIds = defaultState.columns;
-
   const selectionIds = new Set();
 
   columnsOrderFood.forEach((columnId) => {
@@ -113,14 +112,24 @@ export function formatRecipeData(data, pastMeals) {
 }
 
 export function formatPlannedMealData(data) {
-  const result = data.map((item) => ({
-    ...item,
-    date: new Date(item.properties.Date.date.start).toISOString(),
-    title: item.properties.Name.title[0]?.plain_text || '',
-    recipeLinkId: item.properties['Recipe link']?.relation[0]?.id || null,
-    status: 'planned',
-    tags: [],
-  }));
+  const result = data.map((item) => {
+    const startDate = new Date(item.properties.Date.date.start);
+    const endDate = new Date(item.properties.Date.date.end);
+    const hasEndDate = item.properties.Date?.date?.end === 'string';
+    const daysDiff = typeof hasEndDate
+      ? Math.round((endDate - startDate) / (1000 * 60 * 60 * 24))
+      : 0;
+
+    return {
+      ...item,
+      date: startDate.toISOString(),
+      daysDiff: daysDiff,
+      title: item.properties.Name.title[0]?.plain_text || '',
+      recipeLinkId: item.properties['Recipe link']?.relation[0]?.id || null,
+      status: 'planned',
+      tags: [],
+    };
+  });
 
   return result;
 }

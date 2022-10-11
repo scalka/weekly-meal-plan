@@ -97,7 +97,14 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
               (recipeId) => normalizedRecipes.byId[recipeId]
             );
             const alreadyPlanned = column.plannedIds.map((plannedId) => {
-              return normalizedPlanned.byId[plannedId];
+              // recipe id comes before $, after $ sign is the information about multi day planned recipe
+              const idParts = plannedId.split('$');
+              const plannedRecipe = normalizedPlanned.byId[idParts[0]];
+              return {
+                ...plannedRecipe,
+                status: idParts[1] ? 'planned x days' : plannedRecipe.status,
+                id: plannedId,
+              };
             });
             return (
               <Column

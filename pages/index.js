@@ -101,16 +101,32 @@ export async function getServerSideProps({ req, res }) {
   const { columnsWithIds, normalizedRecipes } = recommendDiner(records);
 
   // add to the board already planned recipes
-  defaultState.columnsOrderDays.forEach((dayId) => {
+  defaultState.columnsOrderDays.forEach((dayId, currColIndex) => {
     const plannedMeals = results
       .filter(
         (item) =>
           new Date(item.date).getDate() ===
           new Date(columnsWithIds[dayId].date).getDate()
       )
-      .map((item) => item.id);
+      .map((item) => {
+        // add an item to next column as well if it's planned for multiple days
+        if (item.daysDiff > 0) {
+          for (let i = 1; i <= item.daysDiff; i++) {
+            const nextColId = defaultState.columnsOrderDays[currColIndex + i];
+            columnsWithIds[nextColId].plannedIds = [
+              ...columnsWithIds[nextColId].plannedIds,
+              `${item.id}$${nextColId}${i}`,
+            ];
+          }
+        }
+        return item.id;
+      });
 
-    columnsWithIds[dayId].plannedIds = [...plannedMeals];
+    // todo: understand why the recipes are dublicated on refresh
+    // Set removes the duplicates
+    columnsWithIds[dayId].plannedIds = [
+      ...new Set([...columnsWithIds[dayId].plannedIds, ...plannedMeals]),
+    ];
     return;
   });
 
