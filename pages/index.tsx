@@ -6,7 +6,7 @@ import Context from 'state/Context';
 
 import { getWeeklyPlan, getAllRecipes } from '../lib/notion-api';
 import { recommendDiner } from 'helpers/helpers';
-import mockData from '../data/mockData.json';
+// import mockData from '../data/mockData.json';
 import defaultState from 'state/defaultState';
 
 import DragAndDrop from '../components/DragAndDrop';
