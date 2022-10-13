@@ -1,7 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd';
 import Tag from 'components/Tag';
 import RecipeLink from './RecipeLink';
-import DuplicateIcon from 'public/icons/noun-duplicate-3773482';
 
 // CardItem - recipe card
 const CardItem = ({ cardItem, index }) => {
@@ -9,7 +8,6 @@ const CardItem = ({ cardItem, index }) => {
     return null;
   }
 
-  const handleDuplicate = () => {};
   return (
     <Draggable draggableId={cardItem.id} index={index}>
       {(provided, snapshot) => (
@@ -43,18 +41,6 @@ const CardItem = ({ cardItem, index }) => {
               ))}
             </div>
           )}
-          {/* 
-          <button
-            id="duplicate-trigger"
-            aria-labelledby="duplicate"
-            className="absolute top-2 right-2"
-            onClick={handleDuplicate}
-          >
-            <span id="duplicate" hidden>
-              Duplicate
-            </span>
-            <DuplicateIcon />
-          </button> */}
         </div>
       )}
     </Draggable>
