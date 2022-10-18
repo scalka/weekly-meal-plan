@@ -1,17 +1,28 @@
-import { GetServerSideProps } from 'next';
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
+import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 
 import Context from 'state/Context';
 
-import { getWeeklyPlan, getAllRecipes } from '../lib/notion-api';
+import {
+  initNotionClient,
+  getWeeklyPlan,
+  getAllRecipes,
+  getRecipesDatabaseId,
+  getMealPlanDatabaseId,
+} from '../lib/notion-api';
 import { recommendDiner } from 'helpers/helpers';
 // import mockData from '../data/mockData.json';
 import defaultState from 'state/defaultState';
 
 import DragAndDrop from '../components/DragAndDrop';
 
-export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
+export default function Planner({
+  columnsWithIds,
+  serverPlanned,
+  serverRecipes,
+  mealPlanDatabaseId,
+}) {
   const {
     state: { normalizedRecipes },
     dispatch,
@@ -52,9 +63,12 @@ export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
         const recipe = normalizedRecipes.byId[id];
 
         requests.push({
-          recipeLinkId: recipe.id,
-          name: recipe.title,
-          date: column.date,
+          body: {
+            recipeLinkId: recipe.id,
+            name: recipe.title,
+            date: column.date,
+          },
+          mealPlanDatabaseId,
         });
       });
     });
@@ -89,52 +103,80 @@ export default function Home({ columnsWithIds, serverPlanned, serverRecipes }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const allRecipes = await getAllRecipes();
-  //const allRecipes = mockData;
-  const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan();
-  //const lastWeekMealIds = mockData.lastWeekMealIds;
+export const getServerSideProps = withPageAuth({
+  redirectTo: '/login',
+  async getServerSideProps(ctx, supabase) {
+    // Retrieve provider_token from cookies
+    const auth_token = JSON.parse(ctx.req.cookies['supabase-auth-token']);
+    const provider_token = auth_token.provider_token;
 
-  const { columnsWithIds, normalizedRecipes } = recommendDiner(
-    allRecipes,
-    lastWeekMealIds
-  );
+    // Access the user object
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  // add to the board already planned recipes
-  defaultState.columnsOrderDays.forEach((dayId, currColIndex) => {
-    const plannedMeals = results
-      .filter(
-        (item) =>
-          new Date(item.date).getDate() ===
-          new Date(columnsWithIds[dayId].date).getDate()
-      )
-      .map((item) => {
-        // add an item to next column as well if it's planned for multiple days
-        if (item.daysDiff > 0) {
-          for (let i = 1; i <= item.daysDiff; i++) {
-            const nextColId = defaultState.columnsOrderDays[currColIndex + i];
-            columnsWithIds[nextColId].plannedIds = [
-              ...columnsWithIds[nextColId].plannedIds,
-              `${item.id}$${nextColId}${i}`,
-            ];
+    initNotionClient(provider_token);
+
+    // Get ids for databases
+    const recipesDatabaseId = await getRecipesDatabaseId(
+      user.user_metadata.provider_id
+    );
+    const mealPlanDatabaseId = await getMealPlanDatabaseId(
+      user.user_metadata.provider_id
+    );
+
+    // Get all recipes
+    const allRecipes = await getAllRecipes(recipesDatabaseId);
+
+    // Get meal plan data
+    const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan(
+      mealPlanDatabaseId
+    );
+
+    // Generate recommendations
+    const { columnsWithIds, normalizedRecipes } = recommendDiner(
+      allRecipes,
+      lastWeekMealIds
+    );
+
+    // Add to the board already planned recipes
+    defaultState.columnsOrderDays.forEach((dayId, currColIndex) => {
+      const plannedMeals = results
+        .filter(
+          (item) =>
+            new Date(item.date).getDate() ===
+            new Date(columnsWithIds[dayId].date).getDate()
+        )
+        .map((item) => {
+          // add an item to next column as well if it's planned for multiple days
+          if (item.daysDiff > 0) {
+            for (let i = 1; i <= item.daysDiff; i++) {
+              const nextColId = defaultState.columnsOrderDays[currColIndex + i];
+              columnsWithIds[nextColId].plannedIds = [
+                ...columnsWithIds[nextColId].plannedIds,
+                `${item.id}$${nextColId}${i}`,
+              ];
+            }
           }
-        }
-        return item.id;
-      });
+          return item.id;
+        });
 
-    // todo: understand why the recipes are duplicated on refresh
-    // Set removes the duplicates
-    columnsWithIds[dayId].plannedIds = [
-      ...new Set([...columnsWithIds[dayId].plannedIds, ...plannedMeals]),
-    ];
-    return;
-  });
+      // todo: understand why the recipes are duplicated on refresh
+      // Set removes the duplicates
+      columnsWithIds[dayId].plannedIds = [
+        ...new Set([...columnsWithIds[dayId].plannedIds, ...plannedMeals]),
+      ];
+      return;
+    });
 
-  return {
-    props: {
-      columnsWithIds: columnsWithIds,
-      serverRecipes: normalizedRecipes,
-      serverPlanned: normalizedPlanned,
-    },
-  };
-};
+    return {
+      props: {
+        columnsWithIds: columnsWithIds,
+        serverRecipes: normalizedRecipes,
+        serverPlanned: normalizedPlanned,
+        mealPlanDatabaseId,
+        email: user?.email,
+      },
+    };
+  },
+});
