@@ -118,12 +118,8 @@ export const getServerSideProps = withPageAuth({
     initNotionClient(provider_token);
 
     // Get ids for databases
-    const recipesDatabaseId = await getRecipesDatabaseId(
-      user.user_metadata.provider_id
-    );
-    const mealPlanDatabaseId = await getMealPlanDatabaseId(
-      user.user_metadata.provider_id
-    );
+    const recipesDatabaseId = await getRecipesDatabaseId();
+    const mealPlanDatabaseId = await getMealPlanDatabaseId();
 
     // Get all recipes
     const allRecipes = await getAllRecipes(recipesDatabaseId);
