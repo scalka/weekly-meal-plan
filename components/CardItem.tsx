@@ -18,9 +18,7 @@ const CardItem = ({ cardItem, index }) => {
           className="shadow-md rounded-md border-slate-200 p-2 bg-white relative"
           /* isDragging={snapshot.isDragging} */
         >
-          {cardItem.status && (
-            <Tag colorClass="bg-pink-200">{cardItem.status}</Tag>
-          )}
+          {cardItem.status && <Tag colorClass="bg-pink">{cardItem.status}</Tag>}
           <div className="text-sm pb-1">{cardItem.title}</div>
           {cardItem.book && (
             <Tag colorClass="bg-indigo-200">{cardItem.book}</Tag>
@@ -35,7 +33,7 @@ const CardItem = ({ cardItem, index }) => {
             <div>
               {' '}
               {cardItem.tags.map((tag: string, i: number) => (
-                <Tag colorClass="bg-orange-200" key={i}>
+                <Tag colorClass="bg-yellow" key={i}>
                   {tag}
                 </Tag>
               ))}

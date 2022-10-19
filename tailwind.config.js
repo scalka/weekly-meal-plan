@@ -6,14 +6,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        blue: '#4A6FB5',
+        pink: '#E594DB',
+        orange: '#ff7849',
+        green: '#3A8569',
+        yellow: '#DBB257',
+        'gray-dark': '#273444',
+        gray: '#D9D9D9',
+        'gray-light': '#d3dce6',
         'rp-text': '#322F44',
         'rp-background': '#F3F0EA',
-        'rp-green': '#3A8569',
-        'rp-yellow': '#DBB257',
-        'rp-blue': '#4A6FB5',
         'rp-offwhite': '#F5F5F5',
-        'rp-grey': 'D9D9D9',
       },
+    },
+    fontFamily: {
+      sans: ['Neue Haas Grotesk Display Pro', 'sans-serif'],
+      serif: ['Merriweather', 'serif'],
     },
   },
   plugins: [],

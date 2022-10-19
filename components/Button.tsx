@@ -17,7 +17,7 @@ const Button = ({
   return (
     <button
       type="button"
-      className={`btn-${variation} drop-shadow-lg py-2 px-4 rounded ${customStyle}`}
+      className={`btn-${variation} ${customStyle}`}
       {...props}
     >
       {children}
