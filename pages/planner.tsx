@@ -16,6 +16,7 @@ import { recommendDiner } from 'helpers/helpers';
 import defaultState from 'state/defaultState';
 
 import DragAndDrop from '../components/DragAndDrop';
+import Button from '../components/Button';
 
 export default function Planner({
   columnsWithIds,
@@ -92,13 +93,13 @@ export default function Planner({
         ></DragAndDrop>
       )}
 
-      <button
-        className="fixed bottom-3 right-3 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+      <Button
         onClick={handleSaveWeeklyPlan}
+        customStyle="fixed bottom-3 right-3 "
         type="submit"
       >
         Send to Notion
-      </button>
+      </Button>
     </main>
   );
 }

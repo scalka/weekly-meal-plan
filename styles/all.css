@@ -1,3 +1,20 @@
+@import url('http://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro?styles=82961,82969,82957');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-rp-background;
+    font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+  }
+}
+
+.btn-primary {
+  @apply text-rp-background bg-rp-text hover:bg-rp-blue;
+}
+
+.btn-secondary {
+  @apply text-rp-text bg-rp-background hover:bg-rp-blue;
+}

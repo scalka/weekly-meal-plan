@@ -1,7 +1,7 @@
 import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 
 export default function Home({ name = 'Not logged in' }) {
-  return <main className="container">{name}</main>;
+  return <main>{name}</main>;
 }
 
 export const getServerSideProps = withPageAuth({

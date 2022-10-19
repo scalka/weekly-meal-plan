@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { supabase } from '../lib/initSupabase';
+import Button from '../components/Button';
 
 const LoginPage = () => {
   const { session, error } = useSessionContext();
@@ -25,7 +26,7 @@ const LoginPage = () => {
     <>
       {error && <p>{error.message}</p>}
       <div>
-        <button onClick={handleLogin}>Sign in with Notion</button>
+        <Button onClick={handleLogin}>Sign in with Notion</Button>
       </div>
     </>
   );
