@@ -17,6 +17,10 @@ module.exports = {
         'rp-text': '#322F44',
         'rp-background': '#F3F0EA',
         'rp-offwhite': '#F5F5F5',
+        'rp-light-blue': '#CCDBF4',
+        'rp-green-light': '#E1EDE9',
+        'rp-green-dark': '#20493A',
+        'rp-yellow-light': '#E1EDE9',
       },
     },
     fontFamily: {

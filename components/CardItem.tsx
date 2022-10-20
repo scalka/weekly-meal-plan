@@ -15,23 +15,18 @@ const CardItem = ({ cardItem, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          className="shadow-md rounded-md border-slate-200 p-2 bg-white relative"
+          className="shadow-md border border-rp-text rounded-md border-slate-200 p-2 bg-white relative"
           /* isDragging={snapshot.isDragging} */
         >
-          {cardItem.status && <Tag colorClass="bg-pink">{cardItem.status}</Tag>}
-          <div className="text-sm pb-1">{cardItem.title}</div>
-          {cardItem.book && (
-            <Tag colorClass="bg-indigo-200">{cardItem.book}</Tag>
-          )}
-          {cardItem.website && (
-            <Tag colorClass="bg-indigo-100">
-              <RecipeLink url={cardItem.website} />{' '}
+          {cardItem.status && (
+            <Tag colorClass="bg-rp-green-light text-rp-green-dark">
+              {cardItem.status}
             </Tag>
           )}
+          <div className="text-sm pb-1">{cardItem.title}</div>
 
           {cardItem.tags && (
             <div>
-              {' '}
               {cardItem.tags.map((tag: string, i: number) => (
                 <Tag colorClass="bg-yellow" key={i}>
                   {tag}
@@ -39,6 +34,8 @@ const CardItem = ({ cardItem, index }) => {
               ))}
             </div>
           )}
+          {cardItem.book && <span className="text-xs">{cardItem.book}</span>}
+          {cardItem.website && <RecipeLink url={cardItem.website} />}
         </div>
       )}
     </Draggable>

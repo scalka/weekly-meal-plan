@@ -12,7 +12,7 @@ const RecipeLink = ({ url, label = '' }) => {
       href={url}
       target="_blank"
       rel="noreferrer"
-      className="underline decoration-indigo-500/30 hover:decoration-indigo-500/100"
+      className="underline text-xs decoration-indigo-500/30 hover:decoration-indigo-500/100"
     >
       {shortLabel}
     </a>

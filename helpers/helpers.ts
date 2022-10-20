@@ -76,7 +76,9 @@ export function formatRecipeData(data, pastMeals) {
   const result = filterPastWeek.map((item) => ({
     ...item,
     title: item.properties.Title.title[0].plain_text,
-    tags: item.properties.Tags.multi_select.map((tag) => tag.name),
+    tags: item.properties.Tags.multi_select
+      .map((tag) => tag.name)
+      .filter((tag) => !['diner', 'soup', 'potato', 'rice'].includes(tag)),
     book: item.properties.Book.select?.name || '',
     website: item.properties.Link?.url || '',
   }));

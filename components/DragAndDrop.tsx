@@ -72,9 +72,9 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
   };
 
   return (
-    <div className="grid grid-rows-2 gap-6">
+    <div className="grid gap-6">
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid grid-cols-7 gap-2">
           {defaultState.columnsOrderFood.map((columnId) => {
             const column = columnsWithIds[columnId];
             const columnItems = column.recipeIds.map(
@@ -90,7 +90,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
             );
           })}
         </div>
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid grid-cols-7 gap-2">
           {defaultState.columnsOrderDays.map((columnId) => {
             const column = columnsWithIds[columnId];
             const columnItems = column.recipeIds.map(
