@@ -108,7 +108,7 @@ const defaultState = {
     },
     extraVegan: {
       id: 'extraVegan',
-      title: 'extraVegan',
+      title: 'Vege',
       recipeIds: [],
       relatedTags: vegetarianTags,
       max: 3,

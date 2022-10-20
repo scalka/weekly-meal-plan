@@ -45,9 +45,12 @@ const Landing = ({
       <section className="py-20">
         <h1>How does it work?</h1>
         <p className="max-w-2xl">
-          Sign up using your Notion account. Choose option to duplicate the
-          template that is provided. The template includes databse with recipes
-          and database with weekly meal plan.{' '}
+          Sign up using your Notion account. Choose the option to duplicate the
+          template that is provided. The template includes one database with
+          recipes and second database with weekly meal plan. You can save more
+          recipes. The recipes will be used in the weekly meal plan generator.
+          From there you can assign them to days of the week and save it for
+          later in Notion.{' '}
         </p>
         <div className="flex gap-8">
           <div className="relative">
@@ -58,8 +61,8 @@ const Landing = ({
               alt="Recipy interface illustration."
             />
             <p>
-              Use recipy.com to seee recommendations for you meals. Drag and
-              drop recipes into columns with days of the week. Once ready, click
+              Use recipy.com to see recommendations for you meals. Drag and drop
+              recipes into columns with days of the week. Once ready, click
               ‘send to notion’ button.
             </p>
             <div className="absolute top-44 -right-20 z-10 ">

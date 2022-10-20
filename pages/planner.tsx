@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 
+import Image from 'next/image';
 import Context from 'state/Context';
 
 import {
@@ -86,13 +87,17 @@ export default function Planner({
 
   return (
     <main className="static p-5">
+      <h1 className="text-md font-bold">Recipy</h1>{' '}
+      <p className="pb-8">
+        Drag and drop recipes into days of the week. Once you are ready, send
+        the planning to Notion.
+      </p>
       {currColumnsWithIds && (
         <DragAndDrop
           columnsWithIds={currColumnsWithIds}
           updateData={setCurrColumnsWithIds}
         ></DragAndDrop>
       )}
-
       <Button
         onClick={handleSaveWeeklyPlan}
         customStyle="fixed bottom-3 right-3 "

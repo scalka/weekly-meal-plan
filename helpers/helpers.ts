@@ -72,16 +72,19 @@ export function getRandom(arr) {
 
 export function formatRecipeData(data, pastMeals) {
   const filterPastWeek = data.filter((item) => !pastMeals.includes(item.id));
-
-  const result = filterPastWeek.map((item) => ({
-    ...item,
-    title: item.properties.Title.title[0].plain_text,
-    tags: item.properties.Tags.multi_select
-      .map((tag) => tag.name)
-      .filter((tag) => !['diner', 'soup', 'potato', 'rice'].includes(tag)),
-    book: item.properties.Book.select?.name || '',
-    website: item.properties.Link?.url || '',
-  }));
+  const result = filterPastWeek.map((item) => {
+    const tags = item.properties.Tags.multi_select.map((tag) => tag.name);
+    return {
+      ...item,
+      title: item.properties.Title.title[0].plain_text,
+      tags: tags,
+      displayTags: tags.filter(
+        (tag) => !['diner', 'soup', 'potato', 'rice'].includes(tag)
+      ),
+      book: item.properties.Book.select?.name || '',
+      website: item.properties.Link?.url || '',
+    };
+  });
 
   return result;
 }

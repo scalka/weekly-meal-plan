@@ -25,9 +25,9 @@ const CardItem = ({ cardItem, index }) => {
           )}
           <div className="text-sm pb-1">{cardItem.title}</div>
 
-          {cardItem.tags && (
+          {cardItem.displayTags && (
             <div>
-              {cardItem.tags.map((tag: string, i: number) => (
+              {cardItem.displayTags.map((tag: string, i: number) => (
                 <Tag colorClass="bg-yellow" key={i}>
                   {tag}
                 </Tag>
