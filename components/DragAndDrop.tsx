@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 
 import { DragDropContext } from 'react-beautiful-dnd';
-// todo: prevent planned from moving
 import Context from 'state/Context';
 
 import defaultState from 'state/defaultState';
@@ -104,6 +103,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
                 ...plannedRecipe,
                 status: idParts[1] ? 'planned x days' : plannedRecipe.status,
                 id: plannedId,
+                isDragDisabled: true,
               };
             });
             return (

@@ -9,7 +9,11 @@ const CardItem = ({ cardItem, index }) => {
   }
 
   return (
-    <Draggable draggableId={cardItem.id} index={index}>
+    <Draggable
+      draggableId={cardItem.id}
+      index={index}
+      isDragDisabled={cardItem.isDragDisabled}
+    >
       {(provided, snapshot) => (
         <div
           {...provided.draggableProps}
