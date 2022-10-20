@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { supabase } from '../lib/initSupabase';
-import Button from '../components/Button';
 import Landing from 'components/Landing';
 
 const LoginPage = () => {
