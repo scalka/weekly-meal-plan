@@ -18,6 +18,10 @@ const LoginPage = () => {
     }
   };
 
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+  };
+
   if (session) {
     router.push('/planner');
   }

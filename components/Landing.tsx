@@ -28,8 +28,8 @@ const Landing = ({
             <Button onClick={handleLogin}>Sign in with Notion</Button>
           )}
           {isLoggedIn && (
-            <Link href="/planner" onClick={handleLogin}>
-              <a className="btn-primary">Open planner</a>
+            <Link href="/planner" onClick={handleLogin} className="btn-primary">
+              Open planner
             </Link>
           )}
         </div>
