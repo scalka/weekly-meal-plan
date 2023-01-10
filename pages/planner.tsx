@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 
-import Image from 'next/image';
 import Context from 'state/Context';
 
 import {
@@ -19,12 +18,17 @@ import defaultState from 'state/defaultState';
 import DragAndDrop from '../components/DragAndDrop';
 import Button from '../components/Button';
 
+function Loading() {
+  return <h2>Loading...</h2>;
+}
+
 export default function Planner({
   columnsWithIds,
   serverPlanned,
   serverRecipes,
   mealPlanDatabaseId,
 }) {
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const {
     state: { normalizedRecipes },
     dispatch,
@@ -32,6 +36,10 @@ export default function Planner({
   const router = useRouter();
 
   const [currColumnsWithIds, setCurrColumnsWithIds] = useState(null);
+
+  useEffect(() => {
+    setIsRefreshing(false);
+  }, [serverRecipes]);
 
   useEffect(() => {
     setCurrColumnsWithIds(columnsWithIds);
@@ -83,15 +91,23 @@ export default function Planner({
   // refresh the data from server
   const refreshData = () => {
     router.replace(router.asPath);
+    setIsRefreshing(true);
   };
-
+  if (isRefreshing) {
+    return <main>Loading</main>;
+  }
   return (
     <main className="static p-5">
       <h1 className="text-md font-bold">Recipy</h1>{' '}
-      <p className="pb-8">
-        Drag and drop recipes into days of the week. Once you are ready, send
-        the planning to Notion.
-      </p>
+      <div className="flex justify-start gap-4 pb-5">
+        <p>
+          Drag and drop recipes into days of the week. Once you are ready, send
+          the planning to Notion.
+        </p>
+        <Button onClick={refreshData} variation="secondary" size="small">
+          Refresh suggestions
+        </Button>
+      </div>
       {currColumnsWithIds && (
         <DragAndDrop
           columnsWithIds={currColumnsWithIds}
