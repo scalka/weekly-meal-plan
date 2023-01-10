@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
-import { useSessionContext } from '@supabase/auth-helpers-react';
+import { useUser } from '@supabase/auth-helpers-react';
 import { supabase } from '../lib/initSupabase';
 import Landing from 'components/Landing';
+import Layout from 'components/layout';
 
 const LoginPage = () => {
-  const { session, error } = useSessionContext();
+  const user = useUser();
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -18,19 +19,14 @@ const LoginPage = () => {
     }
   };
 
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-  };
-
-  if (session) {
+  if (user) {
     router.push('/planner');
   }
 
   return (
-    <div>
-      {error && <p>{error.message}</p>}
+    <Layout isLoggedIn={false}>
       <Landing handleLogin={handleLogin} />
-    </div>
+    </Layout>
   );
 };
 
