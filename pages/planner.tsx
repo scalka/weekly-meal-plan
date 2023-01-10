@@ -112,15 +112,11 @@ export default function Planner({
 export const getServerSideProps = withPageAuth({
   redirectTo: '/login',
   async getServerSideProps(ctx, supabase) {
-    // Retrieve provider_token from cookies
-    const auth_token = JSON.parse(ctx.req.cookies['supabase-auth-token']);
-    const provider_token = auth_token.provider_token;
-
-    // Access the user object
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
+    // Get current session
+    const { data } = await supabase.auth.getSession();
+    console.log(data);
+    const provider_token =
+      data.session.provider_token || data.session.refresh_token;
     initNotionClient(provider_token);
 
     // Get ids for databases
@@ -177,7 +173,7 @@ export const getServerSideProps = withPageAuth({
         serverRecipes: normalizedRecipes,
         serverPlanned: normalizedPlanned,
         mealPlanDatabaseId,
-        email: user?.email,
+        //email: user?.email,
       },
     };
   },
