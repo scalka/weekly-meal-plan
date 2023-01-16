@@ -3033,6 +3033,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nprogress@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "nprogress@npm:0.2.0"
+  checksum: 66b7bec5d563ecf2d1c3d2815e6d5eb74ed815eee8563e0afa63d3f185ab1b9cf2ddd97e1ded263b9995c5019d26d600320e849e50f3747984daa033744619dc
+  languageName: node
+  linkType: hard
+
 "object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -4313,6 +4320,7 @@ __metadata:
     eslint: 8.31.0
     eslint-config-next: 13.1.1
     next: 13.1.1
+    nprogress: ^0.2.0
     postcss: ^8.4.21
     react: 18.2.0
     react-beautiful-dnd: ^13.1.1

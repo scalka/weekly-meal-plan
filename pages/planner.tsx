@@ -23,28 +23,18 @@ import defaultState from 'state/defaultState';
 import DragAndDrop from '../components/DragAndDrop';
 import Button from '../components/Button';
 
-function Loading() {
-  return <h2>Loading...</h2>;
-}
-
 export default function Planner({
   columnsWithIds,
   serverPlanned,
   serverRecipes,
   mealPlanDatabaseId,
 }) {
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const {
     state: { normalizedRecipes },
     dispatch,
   } = useContext(Context);
   const router = useRouter();
-
   const [currColumnsWithIds, setCurrColumnsWithIds] = useState(null);
-
-  useEffect(() => {
-    setIsRefreshing(false);
-  }, [serverRecipes]);
 
   useEffect(() => {
     setCurrColumnsWithIds(columnsWithIds);
@@ -96,11 +86,7 @@ export default function Planner({
   // refresh the data from server
   const refreshData = () => {
     router.replace(router.asPath);
-    setIsRefreshing(true);
   };
-  if (isRefreshing) {
-    return <main>Loading</main>;
-  }
 
   return (
     <Layout isLoggedIn={true}>
