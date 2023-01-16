@@ -20,7 +20,7 @@ const Landing = ({
     <div className="m-auto max-w-4xl">
       <section className="py-8 flex">
         <div>
-          <h1 className="text-8xl">
+          <h1 className="text-6xl md:text-8xl">
             Meet <mark className="font-bold text-rp-text block">Recipy</mark>
           </h1>
           <p className="text-3xl pb-8">Your weekly meal planner</p>
@@ -42,9 +42,9 @@ const Landing = ({
           />
         </div>
       </section>
-      <section className="py-20">
+      <section className="py-5 md:py-20">
         <h1>How does it work?</h1>
-        <p className="max-w-2xl">
+        <p className="max-w-2xl pb-4">
           Sign up using your Notion account. Choose the option to duplicate the
           template that is provided. The template includes one database with
           recipes and second database with weekly meal plan. You can save more
@@ -52,7 +52,7 @@ const Landing = ({
           From there you can assign them to days of the week and save it for
           later in Notion.{' '}
         </p>
-        <div className="flex gap-8">
+        <div className="flex flex-col md:flex-row gap-8">
           <div className="relative">
             <Image
               src="/icons/recommender_calendar.svg"
@@ -60,12 +60,12 @@ const Landing = ({
               width={400}
               alt="Recipy interface illustration."
             />
-            <p>
+            <p className="py-4">
               Use recipy.com to see recommendations for you meals. Drag and drop
               recipes into columns with days of the week. Once ready, click
               ‘send to notion’ button.
             </p>
-            <div className="absolute top-44 -right-20 z-10 ">
+            <div className="hidden md:block absolute top-44 -right-20 z-10 ">
               <Image src="/icons/arrow.svg" height={110} width={150} alt="" />
             </div>
           </div>
@@ -76,7 +76,7 @@ const Landing = ({
               width={400}
               alt="Notion weekly planner illustration."
             />
-            <p>
+            <p className="py-4">
               See your planned meals in Notion. Use it to create the shopping
               list, check what to cook on a given day and see how your food
               habits are changing over time.
