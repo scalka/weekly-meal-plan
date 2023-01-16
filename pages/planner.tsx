@@ -97,9 +97,6 @@ export default function Planner({
             Drag and drop recipes into days of the week. Once you are ready,
             send the planning to Notion.
           </p>
-          <Button onClick={refreshData} variation="secondary" size="small">
-            Refresh suggestions
-          </Button>
         </div>
         {currColumnsWithIds && (
           <DragAndDrop
@@ -107,6 +104,13 @@ export default function Planner({
             updateData={setCurrColumnsWithIds}
           ></DragAndDrop>
         )}
+        <Button
+          onClick={refreshData}
+          customStyle="fixed bottom-3 left-3 "
+          variation="secondary"
+        >
+          Refresh suggestions
+        </Button>
         <Button
           onClick={handleSaveWeeklyPlan}
           customStyle="fixed bottom-3 right-3 "

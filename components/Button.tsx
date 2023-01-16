@@ -10,7 +10,6 @@ type ButtonProps = {
 const Button = ({
   variation = 'primary',
   children,
-  size = 'medium',
   customStyle = '',
   ...props
 }: ButtonProps) => {

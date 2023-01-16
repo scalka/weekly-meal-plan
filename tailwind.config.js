@@ -16,6 +16,7 @@ module.exports = {
         'gray-light': '#d3dce6',
         'rp-text': '#322F44',
         'rp-background': '#F3F0EA',
+        'rp-background-darker': '#E9E3D8',
         'rp-offwhite': '#F5F5F5',
         'rp-light-blue': '#CCDBF4',
         'rp-green-light': '#E1EDE9',
