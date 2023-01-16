@@ -13,8 +13,7 @@ import 'styles/all.css';
 function App({ Component, pageProps }) {
   const [state, dispatch] = useReducer(RootReducer, DEFAULT_STATE);
   const store = { state, dispatch };
-  // todo: check if this is not duplicated by initSupabase.js
-  // todo: extend token - check what happens if you don't use app for some time
+  // Create a new supabase browser client on every first render.
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   return (
