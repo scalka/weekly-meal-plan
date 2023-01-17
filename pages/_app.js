@@ -39,8 +39,10 @@ function App({ Component, pageProps }) {
       initialSession={pageProps.initialSession}
     >
       <Context.Provider value={store}>
-        {isLoading && <Loader />}
-        <Component {...pageProps} />
+        <div className="app">
+          {isLoading && <Loader />}
+          <Component {...pageProps} />
+        </div>
       </Context.Provider>
     </SessionContextProvider>
   );

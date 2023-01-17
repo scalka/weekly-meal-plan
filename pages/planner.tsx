@@ -53,7 +53,7 @@ export default function Planner({
           body: JSON.stringify(request),
         });
         if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
+          throw new Error(`Error: ${response?.status}`);
         }
       })
     );
@@ -131,7 +131,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) {
+  if (!session || !session.provider_token) {
     return {
       redirect: {
         destination: '/login',
@@ -139,8 +139,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       },
     };
   }
-
-  const provider_token = session.provider_token || session.refresh_token;
+  const provider_token = session.provider_token;
   initNotionClient(provider_token);
 
   // Get ids for databases
