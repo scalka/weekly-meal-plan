@@ -13,7 +13,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
     state: { normalizedPlanned, normalizedRecipes },
   } = useContext(Context);
 
-  // logic for handling board ites when drag ends
+  // logic for handling board items when drag ends
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
     if (!destination) {
@@ -31,13 +31,13 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
 
     // Re-ordering in the same column
     if (start === finish) {
-      const newrecipeIds = Array.from(start.recipeIds);
-      newrecipeIds.splice(source.index, 1);
-      newrecipeIds.splice(destination.index, 0, draggableId);
+      const newRecipeIds = Array.from(start.recipeIds);
+      newRecipeIds.splice(source.index, 1);
+      newRecipeIds.splice(destination.index, 0, draggableId);
 
       const newColumn = {
         ...start,
-        recipeIds: newrecipeIds,
+        recipeIds: newRecipeIds,
       };
 
       updateData({
@@ -48,18 +48,18 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
     }
 
     // Moving items to another column
-    const startrecipeIds = Array.from(start.recipeIds);
-    startrecipeIds.splice(source.index, 1);
+    const startRecipeIds = Array.from(start.recipeIds);
+    startRecipeIds.splice(source.index, 1);
     const newStart = {
       ...start,
-      recipeIds: startrecipeIds,
+      recipeIds: startRecipeIds,
     };
 
-    const finishrecipeIds = Array.from(finish.recipeIds);
-    finishrecipeIds.splice(source.index, 0, draggableId);
+    const finishRecipeIds = Array.from(finish.recipeIds);
+    finishRecipeIds.splice(source.index, 0, draggableId);
     const newFinish = {
       ...finish,
-      recipeIds: finishrecipeIds,
+      recipeIds: finishRecipeIds,
     };
 
     updateData({
