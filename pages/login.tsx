@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useUser } from '@supabase/auth-helpers-react';
-import { supabase } from '../lib/initSupabase';
+import { createClient } from '@supabase/supabase-js';
 import Landing from 'components/Landing';
 import Layout from 'components/layout';
 
@@ -32,12 +32,18 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      );
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'notion',
         options: {
           redirectTo: getURL(),
         },
       });
+      console.log(data);
+      console.log(error);
       if (error) throw error;
     } catch (error) {
       console.log(error.error_description || error.message);
