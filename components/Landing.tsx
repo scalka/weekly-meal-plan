@@ -101,6 +101,7 @@ const Landing = ({
               &apos;Select pages to share with Recipy planner&apos; when
               authenticating.
             </li>
+            <li>For now you can only plan diners with this app.</li>
             <li>
               I save my recipes in{' '}
               <a href="https://raindrop.io/">Raindrop.io</a> and using{' '}

@@ -101,7 +101,9 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
               const plannedRecipe = normalizedPlanned.byId[idParts[0]];
               return {
                 ...plannedRecipe,
-                status: idParts[1] ? 'planned x days' : plannedRecipe?.status,
+                status: idParts[1]
+                  ? 'planned multi-day'
+                  : plannedRecipe?.status,
                 id: plannedId,
                 isDragDisabled: true,
               };
