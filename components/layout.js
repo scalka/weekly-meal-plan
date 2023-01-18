@@ -11,7 +11,7 @@ export default function Layout({ isLoggedIn, children }) {
       <nav className="w-full flex p-4">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <a
-            href="https://flowbite.com/"
+            href="https://recipy-planner.vercel.app/"
             className="flex items-center"
             aria-label="Back to home"
           >

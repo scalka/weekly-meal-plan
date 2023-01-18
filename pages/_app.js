@@ -1,6 +1,4 @@
 import { useReducer, useState, useEffect } from 'react';
-
-// docs: https://supabase.com/docs/guides/auth/auth-helpers/nextjs
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import Router from 'next/router';
