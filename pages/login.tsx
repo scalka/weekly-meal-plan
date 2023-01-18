@@ -10,7 +10,6 @@ const LoginPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(user);
     // Only redirect once user is logged in.
     if (user) {
       router.push('/planner');
@@ -26,7 +25,6 @@ const LoginPage = () => {
     url = url.includes('http') ? url : `https://${url}`;
     // Make sure to including trailing `/`.
     url = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
-    console.log('redirect url ' + url);
     return url;
   };
 
@@ -42,8 +40,6 @@ const LoginPage = () => {
           redirectTo: getURL(),
         },
       });
-      console.log(data);
-      console.log(error);
       if (error) throw error;
     } catch (error) {
       console.log(error.error_description || error.message);

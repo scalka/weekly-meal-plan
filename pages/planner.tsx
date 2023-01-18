@@ -182,11 +182,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         return item.id;
       });
 
-    // todo: understand why the recipes are duplicated on refresh
-    // Set removes the duplicates
-    columnsWithIds[dayId].plannedIds = [
-      ...new Set([...columnsWithIds[dayId].plannedIds, ...plannedMeals]),
-    ];
+    columnsWithIds[dayId].plannedIds = plannedMeals;
     return;
   });
 
