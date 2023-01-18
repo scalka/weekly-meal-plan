@@ -69,9 +69,8 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
     });
     return;
   };
-
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 overflow-x-auto">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="grid grid-cols-7 gap-2">
           {defaultState.columnsOrderFood.map((columnId) => {

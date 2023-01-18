@@ -17,7 +17,7 @@ const Landing = ({
   ...props
 }: LandingProps) => {
   return (
-    <div className="m-auto max-w-4xl">
+    <div className="m-auto max-w-4xl px-4">
       <section className="py-8 flex">
         <div>
           <h1 className="text-6xl md:text-8xl">

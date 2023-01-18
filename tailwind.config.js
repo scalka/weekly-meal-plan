@@ -23,6 +23,9 @@ module.exports = {
         'rp-green-dark': '#20493A',
         'rp-yellow-light': '#E1EDE9',
       },
+      gridTemplateColumns: {
+        7: 'repeat(7, 1fr)',
+      },
     },
     fontFamily: {
       sans: ['Neue Haas Grotesk Display Pro', 'sans-serif'],
