@@ -43,14 +43,15 @@ const Landing = ({
         </div>
       </section>
       <section className="py-5 md:py-20">
-        <h1>How does it work?</h1>
-        <p className="max-w-2xl pb-4">
+        <h2>How does it work?</h2>
+        <p className="max-w-[70ch] pb-4">
           Sign up using your Notion account. Choose the option to duplicate the
           template that is provided. The template includes one database with
-          recipes and second database with weekly meal plan. You can save more
-          recipes. The recipes will be used in the weekly meal plan generator.
-          From there you can assign them to days of the week and save it for
-          later in Notion.{' '}
+          recipes and second database with weekly meal plan. Later on you can
+          add more recipes to the database, just keep the provided template. The
+          recipes will be used in the weekly meal plan generator. From there you
+          can assign them to days of the week and save it to access later in
+          Notion.
         </p>
         <div className="flex flex-col md:flex-row gap-8">
           <div className="relative">
@@ -63,7 +64,7 @@ const Landing = ({
             <p className="py-4">
               Use recipy.com to see recommendations for you meals. Drag and drop
               recipes into columns with days of the week. Once ready, click
-              ‘send to notion’ button.
+              &apos;Send to Notion&apos; button.
             </p>
             <div className="hidden md:block absolute top-44 -right-20 z-10 ">
               <Image src="/icons/arrow.svg" height={110} width={150} alt="" />
@@ -82,6 +83,33 @@ const Landing = ({
               habits are changing over time.
             </p>
           </div>
+        </div>
+        <div className="max-w-[70ch] ">
+          <h2>Practical information</h2>
+          <p className="">
+            You can decide to only keep using the Notion template. If you want
+            to use this app as well, make sure to follow the guidelines below.
+          </p>
+
+          <ul className="list-disc list-inside">
+            <li>
+              You can rename the pages and databases but keep &apos;Meals
+              database&apos; and &apos;Meal plan&apos; in the titles.
+            </li>
+            <li>
+              To connect to existing Notion meal planner database, choose
+              &apos;Select pages to share with Recipy planner&apos; when
+              authenticating.
+            </li>
+            <li>
+              I save my recipes in{' '}
+              <a href="https://raindrop.io/">Raindrop.io</a> and using{' '}
+              <a href="https://zapier.com/">Zapier</a> I import them
+              automatically into Notion. You can try to do the same, add them
+              manually or use one of the Notion web clippers.
+            </li>
+            <li>This app is still Work In Progress, so expect bugs.</li>
+          </ul>
         </div>
       </section>
     </div>
