@@ -84,6 +84,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
                 key={column.id}
                 column={column}
                 columnItems={columnItems}
+                type="primary"
               />
             );
           })}
@@ -110,7 +111,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
                 key={column.id}
                 column={column}
                 columnItems={[...alreadyPlanned, ...columnItems]}
-                colorClass="bg-violet-200"
+                type="secondary"
               />
             );
           })}

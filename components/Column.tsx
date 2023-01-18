@@ -3,12 +3,12 @@ import { Droppable } from 'react-beautiful-dnd';
 import CardItem from './CardItem';
 
 // Column on the board with column items
-const Column = ({ colorClass = 'bg-indigo-200', column, columnItems }) => {
+const Column = ({ type, column, columnItems }) => {
   return (
     <Droppable droppableId={column.id}>
       {(provided, snapshot) => (
         <div
-          className={`p-2 border min-h-[200px] ${colorClass} rounded-md ${
+          className={`p-2 min-h-[200px] min-w-[150px] column-${type} rounded-md ${
             snapshot.isDraggingOver
               ? 'outline-dashed outline-2 outline-offset-2 outline-slate-400'
               : ''

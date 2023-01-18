@@ -19,11 +19,11 @@ const CardItem = ({ cardItem, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          className="shadow-md border border-rp-text rounded-md border-slate-200 p-2 bg-white relative"
+          className="shadow-md outline-l-2 outline-b-2 rounded-md p-2 bg-white text-rp-text relative"
           /* isDragging={snapshot.isDragging} */
         >
           {cardItem.status && (
-            <Tag colorClass="bg-rp-green-light text-rp-green-dark">
+            <Tag colorClass="bg-rp-green-30 text-rp-green-80">
               {cardItem.status}
             </Tag>
           )}
@@ -32,7 +32,7 @@ const CardItem = ({ cardItem, index }) => {
           {cardItem.displayTags && (
             <div>
               {cardItem.displayTags.map((tag: string, i: number) => (
-                <Tag colorClass="bg-yellow" key={i}>
+                <Tag colorClass="bg-rp-yellow-20" key={i}>
                   {tag}
                 </Tag>
               ))}

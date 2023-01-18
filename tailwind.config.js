@@ -6,22 +6,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        blue: '#4A6FB5',
-        pink: '#E594DB',
-        orange: '#ff7849',
-        green: '#3A8569',
-        yellow: '#DBB257',
-        'gray-dark': '#273444',
-        gray: '#D9D9D9',
-        'gray-light': '#d3dce6',
-        'rp-text': '#322F44',
-        'rp-background': '#F3F0EA',
-        'rp-background-darker': '#E9E3D8',
-        'rp-offwhite': '#F5F5F5',
-        'rp-light-blue': '#CCDBF4',
-        'rp-green-light': '#E1EDE9',
-        'rp-green-dark': '#20493A',
-        'rp-yellow-light': '#E1EDE9',
+        'rp-pink-50': '#a64d62',
+        'rp-pink-20': '#af5f72',
+        'rp-yellow-20': '#fff7da',
+        'rp-yellow-50': '#ffe483', // yellow
+        'rp-text': '#15180b',
+        'rp-background': '#fefff9',
+        'rp-green-50': '#418264',
+        'rp-green-30': '#f0f7cd',
+        'rp-green-40': '#d8deb9',
+        'rp-green-80': '#2e5d47',
       },
       gridTemplateColumns: {
         7: 'repeat(7, 1fr)',

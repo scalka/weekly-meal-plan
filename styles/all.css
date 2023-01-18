@@ -12,11 +12,19 @@
 }
 
 .btn-primary {
-  @apply text-rp-background bg-rp-text hover:bg-blue  py-2 px-4 rounded;
+  @apply text-rp-background bg-rp-pink-50 hover:bg-rp-pink-20  py-2 px-4 rounded;
 }
 
 .btn-secondary {
-  @apply text-rp-text bg-rp-background-darker hover:bg-blue  py-2 px-4 rounded;
+  @apply text-rp-text bg-rp-green-30  hover:bg-rp-green-40  py-2 px-4 rounded;
+}
+
+.column-primary {
+  @apply text-rp-text bg-rp-yellow-50;
+}
+
+.column-secondary {
+  @apply text-rp-background bg-rp-green-50;
 }
 
 h1 {
