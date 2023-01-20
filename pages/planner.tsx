@@ -148,11 +148,18 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   // Get ids for databases
   const recipesDatabaseId = await getRecipesDatabaseId();
+  setTimeout(() => {
+    console.log('Delayed for 1 second.');
+  }, 1000);
   const mealPlanDatabaseId = await getMealPlanDatabaseId();
-
+  setTimeout(() => {
+    console.log('Delayed for 1 second.');
+  }, 1000);
   // Get all recipes
   const allRecipes = await getAllRecipes(recipesDatabaseId);
-
+  setTimeout(() => {
+    console.log('Delayed for 1 second.');
+  }, 1000);
   // Get meal plan data
   const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan(
     mealPlanDatabaseId
