@@ -12,9 +12,9 @@ module.exports = {
         'rp-yellow-50': '#ffe483', // yellow
         'rp-text': '#15180b',
         'rp-background': '#fefff9',
-        'rp-green-50': '#418264',
         'rp-green-30': '#f0f7cd',
         'rp-green-40': '#d8deb9',
+        'rp-green-50': '#418264',
         'rp-green-80': '#2e5d47',
       },
       gridTemplateColumns: {

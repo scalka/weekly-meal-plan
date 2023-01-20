@@ -142,6 +142,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const provider_token = session.provider_token;
   initNotionClient(provider_token);
 
+  setTimeout(() => {
+    console.log('Delayed for 1 second.');
+  }, 1000);
+
   // Get ids for databases
   const recipesDatabaseId = await getRecipesDatabaseId();
   const mealPlanDatabaseId = await getMealPlanDatabaseId();

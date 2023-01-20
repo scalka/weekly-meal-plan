@@ -30,6 +30,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
     const finish = columnsWithIds[destination.droppableId];
 
     // Re-ordering in the same column
+    // todo: fix bug on reordering in new column for planning
     if (start === finish) {
       const newRecipeIds = Array.from(start.recipeIds);
       newRecipeIds.splice(source.index, 1);
