@@ -144,7 +144,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   setTimeout(() => {
     console.log('Delayed for 1 second.');
-  }, 1000);
+  }, 3000);
 
   // Get ids for databases
   const recipesDatabaseId = await getRecipesDatabaseId();
