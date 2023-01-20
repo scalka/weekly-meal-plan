@@ -142,24 +142,17 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const provider_token = session.provider_token;
   initNotionClient(provider_token);
 
-  setTimeout(() => {
-    console.log('Delayed for 1 second.');
-  }, 3000);
-
+  function delay(milliseconds) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, milliseconds);
+    });
+  }
+  await delay(2000);
   // Get ids for databases
   const recipesDatabaseId = await getRecipesDatabaseId();
-  setTimeout(() => {
-    console.log('Delayed for 1 second.');
-  }, 1000);
   const mealPlanDatabaseId = await getMealPlanDatabaseId();
-  setTimeout(() => {
-    console.log('Delayed for 1 second.');
-  }, 1000);
   // Get all recipes
   const allRecipes = await getAllRecipes(recipesDatabaseId);
-  setTimeout(() => {
-    console.log('Delayed for 1 second.');
-  }, 1000);
   // Get meal plan data
   const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan(
     mealPlanDatabaseId
