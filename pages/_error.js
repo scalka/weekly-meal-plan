@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import Layout from 'components/layout';
 
-function ErrorPage({ statusCode = 500, statusMessage = '' }) {
+function Error({ statusCode = 500, statusMessage = '' }) {
   const router = useRouter();
   const user = useUser();
   const isLoggedIn = !!user;
