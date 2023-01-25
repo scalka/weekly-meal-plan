@@ -45,7 +45,7 @@ export default function Planner({
   const updatePlan = async (requests) => {
     return Promise.all(
       requests.map(async (request) => {
-        const response = await fetch(`/api/planner`, {
+        const response = await fetch('/api/planner', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export default function Planner({
           <DragAndDrop
             columnsWithIds={currColumnsWithIds}
             updateData={setCurrColumnsWithIds}
-          ></DragAndDrop>
+          />
         )}
         <Button
           onClick={refreshData}
@@ -131,7 +131,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session || !session.provider_token) {
+  if (!session?.provider_token) {
     return {
       redirect: {
         destination: '/login',
@@ -147,14 +147,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       setTimeout(resolve, milliseconds);
     });
   }
-  await delay(3000);
   // Get ids for databases
+  await delay(1000);
   const recipesDatabaseId = await getRecipesDatabaseId();
   const mealPlanDatabaseId = await getMealPlanDatabaseId();
   // Get all recipes
   const allRecipes = await getAllRecipes(recipesDatabaseId);
   // Get meal plan data
-  await delay(1000);
   const { lastWeekMealIds, results, normalizedPlanned } = await getWeeklyPlan(
     mealPlanDatabaseId
   );

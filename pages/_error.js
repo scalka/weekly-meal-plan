@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import Layout from 'components/layout';
 
-function Error({ statusCode = 500, statusMessage = '' }) {
+function ErrorPage({ statusCode = 500, statusMessage = '' }) {
   const router = useRouter();
   const user = useUser();
   const isLoggedIn = !!user;
@@ -18,7 +18,7 @@ function Error({ statusCode = 500, statusMessage = '' }) {
   return (
     <Layout isLoggedIn={isLoggedIn}>
       <p className="text-3xl pb-8">
-        {`An error occurred. Try to log out and log in again.`}
+        {'An error occurred. Try to log out and log in again.'}
       </p>
     </Layout>
   );
