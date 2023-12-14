@@ -27,7 +27,7 @@ const options: Intl.DateTimeFormatOptions = {
   day: 'numeric',
 };
 
-for (let i = 1; i <= 14; i++) {
+for (let i = 1; i <= 13; i++) {
   const currDate = new Date();
   currDate.setDate(today.getDate() + i);
   ISOdates.push(currDate.toISOString());
@@ -114,6 +114,14 @@ const defaultState = {
       max: 3,
     },
     ...dateColumnsData,
+    newInputs: {
+      id: 'newInputs',
+      title: 'Add new entry',
+      relatedTags: vegetarianTags,
+      plannedIds: [],
+      recipeIds: [],
+      duplicatedIds: [],
+    },
   },
   columnsOrderFood: [
     'dough',
@@ -125,6 +133,7 @@ const defaultState = {
     'extraVegan',
   ],
   columnsOrderDays: dateColumns,
+  newInputs: 'newInputs',
 };
 
 export { defaultState as default, vegetarianTags, weekAgo };

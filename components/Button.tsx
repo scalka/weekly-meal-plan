@@ -3,7 +3,7 @@ type ButtonProps = {
   children: String;
   size?: 'small' | 'medium' | 'large';
   customStyle?: String;
-  onClick: () => void;
+  onClick?: () => void;
   [x: string]: any;
 };
 

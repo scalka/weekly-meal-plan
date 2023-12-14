@@ -65,6 +65,9 @@ export function filterBaseOnConditions(arr, category) {
 }
 
 export function getRandom(arr) {
+  // Shuffle the recipes again to keep variety
+  arr.sort(() => Math.random() - 0.5);
+  
   return arr[Math.floor(Math.random() * arr.length)];
 }
 

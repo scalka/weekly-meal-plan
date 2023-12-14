@@ -1,0 +1,4 @@
+# Using EditorConfig for supported options, see `.editorconfig`
+singleQuote: true
+quoteProps: consistent
+proseWrap: never

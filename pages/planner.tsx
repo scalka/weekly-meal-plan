@@ -22,6 +22,8 @@ import defaultState from 'state/defaultState';
 
 import DragAndDrop from '../components/DragAndDrop';
 import Button from '../components/Button';
+import Chat from 'components/Chat';
+import AddNewEntry from 'components/AddNewEntry';
 
 export default function Planner({
   columnsWithIds,
@@ -40,7 +42,7 @@ export default function Planner({
     setCurrColumnsWithIds(columnsWithIds);
     dispatch({ type: 'UPDATE_ALL_RECIPES', payload: serverRecipes });
     dispatch({ type: 'UPDATE_ALL_PLANNED', payload: serverPlanned });
-  }, [columnsWithIds, serverRecipes, serverPlanned, dispatch]);
+  }, [columnsWithIds, serverRecipes, serverPlanned]);
 
   const updatePlan = async (requests) => {
     return Promise.all(
@@ -69,7 +71,7 @@ export default function Planner({
 
         requests.push({
           body: {
-            recipeLinkId: recipe.id,
+            recipeLinkId: recipe.status !== 'new' ? recipe.id : null,
             name: recipe.title,
             date: column.date,
           },
@@ -86,6 +88,10 @@ export default function Planner({
   // refresh the data from server
   const refreshData = () => {
     router.replace(router.asPath);
+  };
+
+  const addNewCard = () => {
+    console.log(currColumnsWithIds);
   };
 
   return (
@@ -118,6 +124,13 @@ export default function Planner({
         >
           Send to Notion
         </Button>
+      </div>
+      <div className="flex justify-center gap-10">
+        <Chat addNewCard={addNewCard} />
+        <AddNewEntry
+          updateData={setCurrColumnsWithIds}
+          columnsWithIds={currColumnsWithIds}
+        />
       </div>
     </Layout>
   );

@@ -1,17 +1,33 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import { DragDropContext } from 'react-beautiful-dnd';
 import Context from 'state/Context';
 
 import defaultState from 'state/defaultState';
 import Column from 'components/Column';
+import Button from 'components/Button';
+
+import { normalize } from 'helpers/helpers';
 
 // Drag and drop board with columns and recipes in correct columns
 const DragAndDrop = ({ columnsWithIds, updateData }) => {
+  const [newEntries, setNewEntries] = useState([]);
   const {
     state: { normalizedPlanned, normalizedRecipes },
   } = useContext(Context);
+
+  useEffect(() => {
+    if (columnsWithIds.newInputs.recipeIds.length) {
+      setNewEntries(
+        columnsWithIds.newInputs.recipeIds.map(
+          (newRecipeId) => normalizedRecipes.byId[newRecipeId]
+        )
+      );
+    } else {
+      setNewEntries([]);
+    }
+  }, [columnsWithIds, normalizedRecipes.byId]);
 
   // logic for handling board items when drag ends
   const onDragEnd = (result) => {
@@ -70,6 +86,7 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
     });
     return;
   };
+
   return (
     <div className="grid gap-6 overflow-x-auto">
       <DragDropContext onDragEnd={onDragEnd}>
@@ -118,6 +135,12 @@ const DragAndDrop = ({ columnsWithIds, updateData }) => {
               />
             );
           })}
+          <Column
+            key={columnsWithIds.newInputs.id}
+            column={columnsWithIds.newInputs}
+            columnItems={newEntries}
+            type="secondary"
+          />
         </div>
       </DragDropContext>
     </div>
