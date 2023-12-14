@@ -125,13 +125,13 @@ export default function Planner({
           Send to Notion
         </Button>
       </div>
-      <div className="flex justify-center gap-10">
-        <Chat addNewCard={addNewCard} />
+      {/* <div className="flex justify-center gap-10">
+        <Chat />
         <AddNewEntry
           updateData={setCurrColumnsWithIds}
           columnsWithIds={currColumnsWithIds}
         />
-      </div>
+      </div> */}
     </Layout>
   );
 }
